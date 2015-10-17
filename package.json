@@ -1,0 +1,31 @@
+{
+  "name": "lvlup-game",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "install": "node_modules/.bin/gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node build/index.js"
+  },
+  "author": "Tim Roes <mail@timroes.de>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-combine-media-queries": "^0.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-live-server": "0.0.29",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.0.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.6"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
