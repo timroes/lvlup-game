@@ -1,9 +1,15 @@
-var express = require('express');
+var bodyParser = require('body-parser'),
+	express = require('express');
+
 var app = express();
+
+var server = require('http').Server(app);
 
 var api = require('./api');
 
-app.use('/api', api(app));
-app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 
-app.listen(process.env.NODE_PORT || 3000);
+app.use('/api', api(server));
+app.use(express.static(__dirname + '/client'));
+
+server.listen(process.env.NODE_PORT || 3000);
