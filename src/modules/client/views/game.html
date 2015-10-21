@@ -1,4 +1,11 @@
-
+<div class="question" ng-show="game.question">
+	<div class="question-body">{{ game.question.question }}</div>
+	<div class="question-answers">
+		<button type="button" class="question-answer" ng-repeat="(id,a) in game.question.answers" ng-click="game.answer(id)" ng-disabled="!game.answeringEnabled">
+			{{ a }}
+		</button>
+	</div>
+</div>
 
 <div class="player-info">
 	<h1 class="player-info__name">{{ game.player.name }}</h1>

@@ -112,6 +112,7 @@ gulp.task('server:watch', () => {
 
 gulp.task('server:build', () => {
 	return gulp.src(src.server)
+		.pipe(_.babel({ optional: [ 'runtime' ]}))
 		.pipe(gulp.dest(dirs.build));
 });
 

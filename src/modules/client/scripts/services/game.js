@@ -27,7 +27,11 @@ angular.module('lvlup.client')
 	}
 
 	function connect(scope) {
-		gameSocket.forward(['player_info'], scope);
+		gameSocket.forward(['player_info', 'question'], scope);
+	}
+
+	function setAnswer(id) {
+		gameSocket.emit('answer', { id: id });
 	}
 
 	socketAuth();
@@ -35,7 +39,8 @@ angular.module('lvlup.client')
 	return {
 		getSession: getSession,
 		login: login,
-		connect: connect
+		connect: connect,
+		setAnswer: setAnswer
 	};
 
 });

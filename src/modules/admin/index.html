@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="lvlup.admin" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LVLUP-GAME</title>
+	<link rel="stylesheet" href="admin.min.css">
+</head>
+<body ng-controller="AdminController as admin">
+	
+	<h1>Admin Interface</h1>
+
+	<div class="current-question">
+
+	</div>
+
+	<div class="questions">
+		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)">
+			<!-- TODO: Icon for type, Exp -->
+			<h1 class="question-title">{{::q.question}}</h1>
+			<ul>
+				<li>{{::q.answer}}</li>
+				<li ng-repeat="answer in ::q.wrongAnswers">{{ answer }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="libs.min.js"></script>
+	<script src="admin.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+.question {
+	padding: 1rem;
+	text-align: center;
+}
+
+.question-body {
+	line-height: 1.5;
+	font-weight: 500;
+	padding-bottom: 1rem;
+}
+
+.question-answers {
+	border-top: 1px solid #AAA;
+	margin: 0;
+	padding: 0 0.6em;
+	list-style: none;
+}
+
+.question-answer {
+	display: block;
+	appearance: none;
+	width: 100%;
+	line-height: 2.8;
+	font-size: 1rem;
+	background: none;
+	border: none;
+	font-weight: 300;
+
+	&:hover, &:focus {
+		background-color: #FFCDC8;
+	}
+}
+.question-answer + .question-answer {
+	border-top: 1px solid #DDD;
+}

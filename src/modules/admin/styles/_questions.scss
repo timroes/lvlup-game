@@ -1,0 +1,12 @@
+.questions {
+	background-color: white;
+}
+
+.question {
+
+	cursor: pointer;
+
+	&:hover, &:focus {
+		background-color: $hover-bg;
+	}
+}

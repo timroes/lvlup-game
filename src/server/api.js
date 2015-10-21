@@ -1,5 +1,4 @@
 var router = require('express').Router();
-var socketio = require('socket.io');
 
 function generateUUID() {
 	var d = new Date().getTime();
@@ -11,16 +10,15 @@ function generateUUID() {
 	return uuid;
 };
 
-module.exports = function(server) {
+module.exports = function(io, server) {
 
 	var users = {};
 	var usernames = [];
 
-	var io = socketio(server);
+	io.on('connection', (socket) => {
 
-	io.on('connection', function(socket) {
-
-		socket.on('authenticate', function(data, callback) {
+		socket.on('authenticate', (data, callback) => {
+			// TODO: send current question if one is active
 			socket.player = users[data.session];
 			callback(socket.player);
 			if (socket.player) {
@@ -28,9 +26,13 @@ module.exports = function(server) {
 			}
 		});
 
+		socket.on('answer', (data) => {
+			console.log("answer ", data);
+		});
+
 	});
 
-	router.post('/login', function(req, res) {
+	router.post('/login', (req, res) => {
 		var body = req.body;
 
 		if (body.name.length < 3) {
