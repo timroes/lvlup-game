@@ -6,7 +6,7 @@ export default class Player {
 		this.sessionId = sessId;
 		this.username = username;
 		this.exp = 0;
-		this.totalExp = 0;
+		this.lostExp = 0;
 		this.level = 1;
 		this.socket = null;
 	}
@@ -30,14 +30,17 @@ export default class Player {
 		// TODO: level up and down properly
 		if (exp < 0) {
 			this.exp = Math.max(this.exp + exp, 0);
+			this.lostExp -= exp;
 		} else {
 			let tmpExp = this.exp + exp;
 			let lvlsup = Math.floor(tmpExp / expPerLevel);
 			this.level += lvlsup;
 			this.exp = tmpExp % expPerLevel;
 		}
+	}
 
-		this.totalExp += exp;
+	get totalExp() {
+		return (this.level - 1) * expPerLevel + this.exp;
 	}
 
 }

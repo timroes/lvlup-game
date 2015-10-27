@@ -1,10 +1,10 @@
 	const q = require('q'),
-	server = require('./server'),
+	server = require('../server'),
 	socketio = require('socket.io');
 
-import Question from './model/question';
+import Question from './question';
 import Player from './player';
-import * as utils from './utils';
+import * as utils from '../utils';
 
 const timeOverrun = 2; // in seconds
 
@@ -22,6 +22,7 @@ export default class Game {
 		this.usernames = [];
 		this.questions = require('./demo-questions');
 		this.currentQuestion = null;
+		this.highscore = null;
 		this.initSocket();
 	}
 
@@ -38,6 +39,9 @@ export default class Game {
 					socket.player = player;
 					player.socket = socket;
 					socket.emit('player', player.infos);
+					if (this.highscore) {
+						socket.emit('highscore', this.highscore);
+					}
 					if (this.currentQuestion) {
 						socket.emit('question', this.currentQuestion.clientJson, this.currentQuestion.timeRemaining);
 					}
@@ -125,6 +129,38 @@ export default class Game {
 		}
 
 		this.currentQuestion = null;
+	}
+
+	/**
+	 * Instantly end the current game. This will just abort the current question (if any running).
+	 */
+	endGame() {
+		// TODO: This should somehow really END this game, no other methods allowed
+		// TODO: cancel running endQuestion timeout
+		this.currentQuestion = null;
+
+		let players = Object.keys(this.players).map((sessId) => {
+			return this.players[sessId];
+		});
+
+		players.sort((a, b) => a.totalExp - b.totalExp);
+
+		console.log(players);
+
+		this.highscore = players.map(player => {
+			return {
+				username: player.username,
+				level: player.level,
+				totalExp: player.totalExp
+			};
+		});
+
+		this.io.sockets.emit('highscore', this.highscore);
+		// TODO: notify each winner individually
+	}
+
+	reset() {
+		// TODO: reset the whole game
 	}
 
 }

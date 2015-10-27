@@ -2,6 +2,7 @@ angular.module('lvlup.client')
 .factory('game', function($q, $http, $location, localStorageService, gameSocket) {
 
 	var SESSION_KEY = 'session';
+	var highscore = null;
 
 	function socketAuth() {
 		gameSocket.emit('authenticate', { session: getSession() }, function(sess) {
@@ -33,6 +34,7 @@ angular.module('lvlup.client')
 			'answer-chosen',
 			'connect',
 			'disconnect',
+			'highscore',
 			'player',
 			'player:update',
 			'question'
@@ -51,6 +53,16 @@ angular.module('lvlup.client')
 		return defer.promise;
 	}
 
+	function getHighscore() {
+		return highscore;
+	}
+
+	gameSocket.on('highscore', function(hs) {
+		console.log(arguments);
+		highscore = hs;
+		$location.path('/highscore');
+	});
+
 	// If we connect to the socket, we try to authenticate to it with our session id
 	gameSocket.on('connect', socketAuth);
 
@@ -63,7 +75,8 @@ angular.module('lvlup.client')
 		getSession: getSession,
 		login: login,
 		connect: connect,
-		setAnswer: setAnswer
+		setAnswer: setAnswer,
+		getHighscore: getHighscore
 	};
 
 });

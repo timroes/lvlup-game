@@ -1,0 +1,7 @@
+<h1>Highscore</h1>
+
+<ul class="highscore">
+	<li ng-repeat="rank in ctrl.highscore">
+		{{ rank.username }} - {{ rank.level }} ({{ rank.totalExp }})
+	</li>
+</ul>

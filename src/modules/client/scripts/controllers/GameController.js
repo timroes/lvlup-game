@@ -39,6 +39,10 @@ angular.module('lvlup.client')
 		ctrl.timeRemaining = timeRemaining;
 	});
 
+	$scope.$on('game:highscore', function(ev, highscore) {
+		ctrl.highscore = highscore;
+	});
+
 	$scope.$on('game:connect', function() {
 		console.log("onConnect in controller");
 		// TODO: hide loading spinner

@@ -17,6 +17,11 @@ angular.module('lvlup.client', [
 			controllerAs: 'game',
 			templateUrl: 'views/game.html'
 		})
+		.when('/highscore', {
+			controller: 'HighscoreController',
+			controllerAs: 'ctrl',
+			templateUrl: 'views/highscore.html'
+		})
 		.otherwise({
 			redirectTo: '/login'
 		});

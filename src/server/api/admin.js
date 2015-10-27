@@ -16,6 +16,16 @@ module.exports = (game) => {
 		res.send();
 	});
 
+	router.post('/endGame', (req, res) => {
+		game.endGame();
+		res.send();
+	});
+
+	router.post('/game/reset', (req, res) => {
+		game.reset();
+		res.send();
+	});
+
 	return router;
 
 };
