@@ -20,7 +20,7 @@ export default class Game {
 		this.state = states.waiting;
 		this.players = {};
 		this.usernames = [];
-		this.questions = require('./demo-questions');
+		this.questions = require('../demo-questions');
 		this.currentQuestion = null;
 		this.highscore = null;
 		this.initSocket();
@@ -112,19 +112,27 @@ export default class Game {
 	endQuestion() {
 		if (!this.currentQuestion) return;
 
+		// TODO: Send out end question event
+
 		if (this.currentQuestionTimeoutId) {
 			clearTimeout(this.currentQuestionTimeoutId);
 		}
 
 		for (let id in this.players) {
 			let player = this.players[id];
+			let exp = null;
 			if (player.currentAnswer) {
 				// player.lvlup(player.currentAnswer.id === this.currentQuestion.correctId ? winExp : loseExp);
-				let exp = this.currentQuestion.expForAnswer(player.currentAnswer);
+				exp = this.currentQuestion.expForAnswer(player.currentAnswer);
 				player.lvlup(exp);
 				player.socket.emit('player:update', player.lvlInfos);
+				console.log("send out solution to player");
 			}
-			// TODO: send correct or wrong answers
+			player.socket.emit('solution', {
+				solved: exp !== null && exp > 0,
+				correctAnswer: this.currentQuestion.correctAnswer
+			});
+
 			player.currentAnswer = null;
 		}
 
@@ -143,7 +151,7 @@ export default class Game {
 			return this.players[sessId];
 		});
 
-		players.sort((a, b) => a.totalExp - b.totalExp);
+		players.sort((a, b) => b.totalExp - a.totalExp);
 
 		console.log(players);
 

@@ -2,7 +2,7 @@ const express = require('express'),
 	server = require('./server'),
 	socketio = require('socket.io');
 
-const Game = require('./game');
+const Game = require('./model/game');
 
 var api = require('./api');
 

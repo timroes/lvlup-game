@@ -37,7 +37,8 @@ angular.module('lvlup.client')
 			'highscore',
 			'player',
 			'player:update',
-			'question'
+			'question',
+			'solution'
 		], scope);
 	}
 

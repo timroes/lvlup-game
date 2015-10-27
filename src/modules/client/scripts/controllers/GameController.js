@@ -18,7 +18,6 @@ angular.module('lvlup.client')
 	};
 
 	$scope.$on('game:answer-chosen', function(ev, answer) {
-		console.log('test', answer);
 		ctrl.answeringEnabled = false;
 		ctrl.chosenAnswer = answer.id;
 	});
@@ -37,10 +36,15 @@ angular.module('lvlup.client')
 		ctrl.answeringEnabled = true;
 		ctrl.question = question;
 		ctrl.timeRemaining = timeRemaining;
+		ctrl.solution = null;
 	});
 
 	$scope.$on('game:highscore', function(ev, highscore) {
 		ctrl.highscore = highscore;
+	});
+
+	$scope.$on('game:solution', function(ev, solution) {
+		ctrl.solution = solution;
 	});
 
 	$scope.$on('game:connect', function() {

@@ -57,6 +57,9 @@ export default class Question {
 		return false;
 	}
 
+	get correctAnswer() {
+		return null;
+	}
 }
 
 class ChoiceQuestion extends Question {
@@ -85,6 +88,10 @@ class ChoiceQuestion extends Question {
 
 	validateAnswer(answer) {
 		return answer.id === this.correctId;
+	}
+
+	get correctAnswer() {
+		return this.correctId;
 	}
 
 }

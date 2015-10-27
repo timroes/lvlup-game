@@ -1,7 +1,9 @@
 <div class="question" ng-show="game.question">
 	<div class="question-body">{{ game.question.question }}</div>
 	<div class="question-answers">
-		<button type="button" class="question-answer" ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id }" ng-repeat="answer in game.question.answers" ng-click="game.answer(answer.id)" ng-disabled="!game.answeringEnabled">
+		<button type="button" class="question-answer" ng-disabled="!game.answeringEnabled"
+				ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id, 'question-answer--correct': game.solution.correctAnswer === answer.id, 'question-answer--wrong': game.chosenAnswer === answer.id && game.solution.solved === false }"
+				ng-repeat="answer in game.question.answers" ng-click="game.answer(answer.id)" >
 			{{ answer.answer }}
 		</button>
 	</div>
