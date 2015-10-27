@@ -39,6 +39,7 @@
     "babel-runtime": "^5.8.25",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "q": "^1.4.1",
     "socket.io": "^1.3.7"
   }
 }

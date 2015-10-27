@@ -7,6 +7,8 @@ angular.module('lvlup.admin')
 		ctrl.questions = ques;
 	});
 
+	ctrl.endQuestion = questions.endQuestion;
+
 	ctrl.setQuestion = questions.setQuestion;
 
 });

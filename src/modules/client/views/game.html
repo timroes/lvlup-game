@@ -1,14 +1,24 @@
 <div class="question" ng-show="game.question">
 	<div class="question-body">{{ game.question.question }}</div>
 	<div class="question-answers">
-		<button type="button" class="question-answer" ng-repeat="(id,a) in game.question.answers" ng-click="game.answer(id)" ng-disabled="!game.answeringEnabled">
-			{{ a }}
+		<button type="button" class="question-answer" ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id }" ng-repeat="answer in game.question.answers" ng-click="game.answer(answer.id)" ng-disabled="!game.answeringEnabled">
+			{{ answer.answer }}
 		</button>
 	</div>
 </div>
 
+<div class="no-question" ng-show="!game.question">
+	<p>Waiting for next question...</p>
+</div>
+
 <div class="player-info">
-	<h1 class="player-info__name">{{ game.player.name }}</h1>
-	<div class="player-info__lvl">Lvl. {{ game.player.level }}</div>
+	<h1 class="player-info__name">{{ game.player.username }}</h1>
+	<div class="player-info__lvl">
+		<!-- <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+			<circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+			<circle id="exp-bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+		</svg> -->
+		<span class="player-info__lvl-label">{{ game.player.level }}</span>
+	</div>
 	<div>Exp. {{ game.player.exp }}</div>
 </div>

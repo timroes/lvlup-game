@@ -11,6 +11,11 @@ module.exports = (game) => {
 		res.send();
 	});
 
+	router.post('/endQuestion', (req, res) => {
+		game.endQuestion();
+		res.send();
+	});
+
 	return router;
 
 };

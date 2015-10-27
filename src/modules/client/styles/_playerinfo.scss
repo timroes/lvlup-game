@@ -3,6 +3,29 @@
 	width: 100%;
 	bottom: 0;
 	box-shadow: 0 0 4px #AAA;
-	padding: 0.4rem;
+	padding: 0.4rem 0.8rem;
 	background-color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.player-info__name {
+	font-size: 1em;
+	font-weight: 300;
+}
+
+.player-info__lvl {
+	flex: 0 0 40px;
+	text-align: center;
+}
+
+#svg #exp-bar {
+	stroke: #ff9F1E;
+}
+#svg circle {
+  stroke-dashoffset: 150;
+  transition: stroke-dashoffset 1s linear;
+  stroke: #666;
+  stroke-width: 4px;
 }
