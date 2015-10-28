@@ -26,6 +26,10 @@ export default class Player {
 		};
 	}
 
+	get totalExp() {
+		return (this.level - 1) * expPerLevel + this.exp;
+	}
+
 	lvlup(exp) {
 		// TODO: level up and down properly
 		if (exp < 0) {
@@ -39,8 +43,17 @@ export default class Player {
 		}
 	}
 
-	get totalExp() {
-		return (this.level - 1) * expPerLevel + this.exp;
+	emit() {
+		if (this.socket) {
+			this.socket.emit.apply(this.socket, arguments);
+		}
+	}
+
+	emitHighscore(highscores) {
+		this.emit('highscore', {
+			topscores: highscores,
+			myrank: this.rank
+		});
 	}
 
 }

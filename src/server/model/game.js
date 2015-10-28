@@ -1,4 +1,4 @@
-	const q = require('q'),
+const q = require('q'),
 	server = require('../server'),
 	socketio = require('socket.io');
 
@@ -7,6 +7,7 @@ import Player from './player';
 import * as utils from '../utils';
 
 const timeOverrun = 2; // in seconds
+const highscoreLimit = 10;
 
 const states = {
 	waiting: Symbol("waiting"),
@@ -40,7 +41,7 @@ export default class Game {
 					player.socket = socket;
 					socket.emit('player', player.infos);
 					if (this.highscore) {
-						socket.emit('highscore', this.highscore);
+						player.emitHighscore(this.highscore);
 					}
 					if (this.currentQuestion) {
 						socket.emit('question', this.currentQuestion.clientJson, this.currentQuestion.timeRemaining);
@@ -52,7 +53,6 @@ export default class Game {
 			});
 
 			socket.on('answer', (data, callback) => {
-				console.log("Answer given: ", data);
 				if (
 					this.currentQuestion // there must be a question
 					&& this.currentQuestion.endTime + (timeOverrun * 1000) >= Date.now() // it must still run
@@ -138,13 +138,16 @@ export default class Game {
 				// player.lvlup(player.currentAnswer.id === this.currentQuestion.correctId ? winExp : loseExp);
 				exp = this.currentQuestion.expForAnswer(player.currentAnswer);
 				player.lvlup(exp);
-				player.socket.emit('player:update', player.lvlInfos);
-				console.log("send out solution to player");
+				if (player.socket) {
+					player.socket.emit('player:update', player.lvlInfos);
+				}
 			}
-			player.socket.emit('solution', {
-				solved: exp !== null && exp > 0,
-				correctAnswer: this.currentQuestion.correctAnswer
-			});
+			if (player.socket) {
+				player.socket.emit('solution', {
+					solved: exp !== null && exp > 0,
+					correctAnswer: this.currentQuestion.correctAnswer
+				});
+			}
 
 			player.currentAnswer = null;
 		}
@@ -166,9 +169,7 @@ export default class Game {
 
 		players.sort((a, b) => b.totalExp - a.totalExp);
 
-		console.log(players);
-
-		this.highscore = players.map(player => {
+		this.highscore = players.slice(0, highscoreLimit).map(player => {
 			return {
 				username: player.username,
 				level: player.level,
@@ -176,8 +177,10 @@ export default class Game {
 			};
 		});
 
-		this.io.sockets.emit('highscore', this.highscore);
-		// TODO: notify each winner individually
+		players.forEach((player, rank) => {
+			player.rank = rank + 1;
+			player.emitHighscore(this.highscore);
+		});
 	}
 
 	reset() {
