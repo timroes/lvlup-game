@@ -2,6 +2,19 @@
 	background-color: white;
 }
 
+.question-upload {
+	line-height: 3em;
+	min-width: 250px;
+	background-color: #EEE;
+	border: 3px dashed #DDD;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&.drag {
+		border-color: $success-color;
+	}
+}
+
 .question {
 
 	cursor: pointer;

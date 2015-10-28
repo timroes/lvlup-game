@@ -6,6 +6,15 @@ module.exports = (game) => {
 		res.json(game.questions);
 	});
 
+	router.put('/questions', (req, res) => {
+		try {
+			game.addQuestions(req.body);
+			res.sendStatus(201);
+		} catch (e) {
+			res.status(500).send(e.message);
+		}
+	});
+
 	router.post('/question', (req, res) => {
 		game.setQuestion(req.body.question);
 		res.send();

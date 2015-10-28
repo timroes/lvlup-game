@@ -20,7 +20,7 @@ export default class Game {
 		this.state = states.waiting;
 		this.players = {};
 		this.usernames = [];
-		this.questions = require('../demo-questions');
+		this.questions = {};
 		this.currentQuestion = null;
 		this.highscore = null;
 		this.initSocket();
@@ -89,6 +89,16 @@ export default class Game {
 		this.players[sessionId] = new Player(sessionId, username);
 
 		return q.when(sessionId);
+	}
+
+	addQuestions(questions) {
+		if (Array.isArray(questions)) {
+			questions.forEach(qes => {
+				this.questions[utils.generateUUID()] = qes;
+			});
+		} else {
+			throw new Error('Questions must be in form of an array.');
+		}
 	}
 
 	setQuestion(id) {

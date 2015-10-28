@@ -16,7 +16,12 @@ angular.module('lvlup.admin')
 		$http.post('/admin/api/endQuestion');
 	}
 
+	function addQuestions(questions) {
+		return $http.put('/admin/api/questions', questions);
+	}
+
 	return {
+		addQuestions: addQuestions,
 		getAll: getAll,
 		endQuestion: endQuestion,
 		setQuestion: setQuestion

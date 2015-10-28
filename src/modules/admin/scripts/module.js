@@ -1,4 +1,5 @@
 angular.module('lvlup.admin', [
 	'ngTouch',
-	'btford.socket-io'
+	'btford.socket-io',
+	'ngFileUpload'
 ]);

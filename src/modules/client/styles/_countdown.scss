@@ -1,6 +1,7 @@
 $countdown-bar-color: #2196F3;
 
 question-countdown {
+	position: fixed;
 	display: block;
 	background-color: $countdown-bar-color;
 	height: 0.3em;

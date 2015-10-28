@@ -19,6 +19,14 @@
 	</div>
 
 	<div class="questions">
+		<div class="question-upload"
+			ngf-drop ngf-select
+			ngf-change="admin.addQuestions($file)"
+			ng-model="uploadedQuestions"
+			accept="application/json" ngf-pattern="'application/json'"
+			ngf-drag-over-class="'drag'">
+			Upload questions
+		</div>
 		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)">
 			<!-- TODO: Icon for type, Exp -->
 			<h1 class="question-title">{{::q.question}}</h1>

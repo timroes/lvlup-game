@@ -51,6 +51,7 @@ angular.module('lvlup.client')
 
 	$scope.$on('game:solution', function(ev, solution) {
 		ctrl.solution = solution;
+		ctrl.answeringEnabled = false;
 	});
 
 	$scope.$on('game:connect', function() {
