@@ -60,9 +60,10 @@ export default class Game {
 				) {
 					socket.player.currentAnswer = data;
 					callback(true);
+				} else {
+					callback(false);
 				}
 
-				callback(false);
 			});
 
 		});
