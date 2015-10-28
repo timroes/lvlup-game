@@ -1,3 +1,5 @@
+<question-countdown ng-if="game.timeRemaining" remaining="game.timeRemaining" total="game.question.time" on-end="game.lockAnswers()"></question-countdown>
+
 <div class="question" ng-show="game.question">
 	<div class="question-body">{{ game.question.question }}</div>
 	<div class="question-answers">

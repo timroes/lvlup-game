@@ -96,6 +96,8 @@ export default class Game {
 			clearTimeout(this.currentQuestionTimeoutId);
 		}
 
+		this.allPlayers(player => player.currentAnswer = null);
+
 		if (!this.questions[id]) {
 			throw new Error(`Cannot find question with id ${id}.`);
 		}
@@ -170,6 +172,12 @@ export default class Game {
 
 	reset() {
 		// TODO: reset the whole game
+	}
+
+	allPlayers(cb) {
+		for (let id in this.players) {
+			cb(this.players[id]);
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 import * as utils from '../utils';
 
-const timePerQuestion = 30; // in seconds
+const timePerQuestionDefault = 30; // in seconds
+const timePerQuestionFactor = 1.0;
 
 export default class Question {
 
@@ -21,6 +22,7 @@ export default class Question {
 		}
 		this.type = json.type;
 		
+		this.time = (json.time ? json.time * timePerQuestionFactor : timePerQuestionDefault) * 1000;
 		this.exp = json.exp;
 		this.winExp = this.exp;
 		this.loseExp = -Math.ceil(this.exp * 0.5);
@@ -35,7 +37,8 @@ export default class Question {
 	get clientJson() {
 		return {
 			type: this.type,
-			exp: this.exp
+			exp: this.exp,
+			time: this.time
 		};
 	}
 
@@ -44,7 +47,7 @@ export default class Question {
 	}
 
 	start() {
-		let remainingTime = timePerQuestion * 1000;
+		let remainingTime = this.time;
 		this.endTime = Date.now() + remainingTime;
 		return remainingTime;
 	}

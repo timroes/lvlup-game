@@ -1,5 +1,5 @@
 angular.module('lvlup.client')
-.controller('GameController', function($scope, game) {
+.controller('GameController', function($rootScope, $scope, game) {
 
 	var ctrl = this;
 
@@ -15,6 +15,11 @@ angular.module('lvlup.client')
 		.catch(function() {
 			// TODO: Could not set answer (should be output anything)
 		});
+	};
+
+	ctrl.lockAnswers = function() {
+		console.log('lockAnswers');
+		ctrl.answeringEnabled = false;
 	};
 
 	$scope.$on('game:answer-chosen', function(ev, answer) {
@@ -37,6 +42,7 @@ angular.module('lvlup.client')
 		ctrl.question = question;
 		ctrl.timeRemaining = timeRemaining;
 		ctrl.solution = null;
+		$rootScope.$emit('answerCountdown:reset');
 	});
 
 	$scope.$on('game:highscore', function(ev, highscore) {
