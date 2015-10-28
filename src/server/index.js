@@ -12,6 +12,7 @@ const game = new Game();
 server.app.use('/api', api(game));
 server.app.use('/admin/api', require('./api/admin')(game));
 
+server.app.use('/screen', express.static(__dirname + '/screen'));
 server.app.use('/admin', express.static(__dirname + '/admin'));
 server.app.use(express.static(__dirname + '/client'));
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="lvlup.screen" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LVLUP-GAME</title>
+	<link rel="stylesheet" href="screen.min.css">
+</head>
+<body ng-controller="ScreenController as screen">
+
+	<qrcode ng-model="screen.gameUrl"></qrcode>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="libs.min.js"></script>
+	<script src="screen.min.js"></script>
+</body>
+</html>

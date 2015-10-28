@@ -1,0 +1,8 @@
+[
+	{ "id": "angular", "scripts": ["angular.min.js"] },
+	{ "id": "angular-route", "scripts": ["angular-route.min.js"] },
+	{ "id": "angular-touch", "scripts": ["angular-touch.min.js"] },
+	{ "id": "angular-local-storage", "scripts": ["dist/angular-local-storage.min.js"] },
+	{ "id": "angular-socket-io", "scripts": ["socket.min.js"] },
+	{ "id": "qrcode", "scripts": ["build/qrcode.min.js"] }
+]
