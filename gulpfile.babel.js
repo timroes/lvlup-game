@@ -115,8 +115,11 @@ gulp.task('server:watch', () => {
 });
 
 gulp.task('server:build', () => {
+	const filter = _.filter(['**/*.js'], { restore: true });
 	return gulp.src(src.server)
+		.pipe(filter)
 		.pipe(_.babel({ optional: [ 'runtime' ]}))
+		.pipe(filter.restore)
 		.pipe(gulp.dest(dirs.build));
 });
 
