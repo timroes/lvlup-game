@@ -20,6 +20,10 @@ const src = {
 	templates: 'views/**/*.html'
 };
 
+const out = {
+	modules: `${dirs.build}/modules/`
+};
+
 var server = _.liveServer([`${dirs.build}/index.js`], null, false);
 
 modules.forEach((module) => {
@@ -31,7 +35,7 @@ modules.forEach((module) => {
 			.pipe(_.concat(`${module}.min.js`))
 			.pipe(_.ngAnnotate())
 			.pipe(_.uglify())
-			.pipe(gulp.dest(`${dirs.build}/${module}`))
+			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
 	});
 
@@ -41,14 +45,14 @@ modules.forEach((module) => {
 			.pipe(_.concat(`${module}.min.css`))
 			// .pipe(_.combineMediaQueries())
 			.pipe(_.minifyCss())
-			.pipe(gulp.dest(`${dirs.build}/${module}`))
+			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
 	});
 
 	gulp.task(`${module}:html`, () => {
 		return gulp.src(moddir + src.html)
 			.pipe(_.minifyHtml())
-			.pipe(gulp.dest(`${dirs.build}/${module}`))
+			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
 	});
 
@@ -61,7 +65,7 @@ modules.forEach((module) => {
 				root: 'views/'
 			}))
 			.pipe(_.uglify())
-			.pipe(gulp.dest(`${dirs.build}/${module}`))
+			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
 	});
 
@@ -80,7 +84,7 @@ modules.forEach((module) => {
 
 		return streamqueue({ objectMode: true }, ...libScripts)
 			.pipe(_.concat('libs.min.js'))
-			.pipe(gulp.dest(`${dirs.build}/${module}`));
+			.pipe(gulp.dest(`${out.modules}/${module}`));
 	});
 
 	gulp.task(`${module}:libs:styles`, () => {
@@ -90,7 +94,7 @@ modules.forEach((module) => {
 
 		return streamqueue({ objectMode: true }, ...libStyles)
 			.pipe(_.concat('libs.min.css'))
-			.pipe(gulp.dest(`${dirs.build}/${module}`));
+			.pipe(gulp.dest(`${out.modules}/${module}`));
 	});
 
 	gulp.task(`${module}:watch`, () => {

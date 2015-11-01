@@ -1,3 +1,5 @@
 angular.module('lvlup.screen', [
-	'ngTouch'
+	'lvlup.shared',
+	'ngTouch',
+	'btford.socket-io'
 ]);

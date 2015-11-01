@@ -1,0 +1,38 @@
+.highscore-container {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.highscore {
+	list-style: none;
+	margin: 0 1em;
+	padding: 0;
+}
+
+.highscore-title {
+	text-align: center;
+}
+
+.highscore-entry {
+	line-height: 2;
+	display: flex;
+}
+
+.highscore-entry__name {
+	display: inline-block;
+	font-weight: 700;
+	width: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	flex: 1 1 auto;
+}
+
+.highscore-entry__lvl {
+	flex: 0 0 50px;
+}
+
+.highscore-entry__exp {
+	flex: 0 0 100px;
+	text-align: right;
+}

@@ -4,6 +4,7 @@ const q = require('q'),
 
 import Question from './question';
 import Player from './player';
+import Screen from './screen';
 import * as utils from '../utils';
 
 const timeOverrun = 2; // in seconds
@@ -25,6 +26,11 @@ export default class Game {
 		this.currentQuestion = null;
 		this.highscore = null;
 		this.initSocket();
+		this.initScreen(this.io);
+	}
+
+	initScreen(io) {
+		this.screen = new Screen(io);
 	}
 
 	initSocket() {
@@ -177,10 +183,13 @@ export default class Game {
 			};
 		});
 
+		this.screen.highscore = this.highscore;
+
 		players.forEach((player, rank) => {
 			player.rank = rank + 1;
 			player.emitHighscore(this.highscore);
 		});
+
 	}
 
 	reset() {

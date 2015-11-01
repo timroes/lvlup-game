@@ -33,7 +33,6 @@ export default class Player extends SafeSocket {
 	}
 
 	lvlup(exp) {
-		// TODO: level up and down properly
 		if (exp < 0) {
 			this.exp = Math.max(this.exp + exp, 0);
 			this.lostExp -= exp;

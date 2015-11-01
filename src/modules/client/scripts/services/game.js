@@ -59,7 +59,7 @@ angular.module('lvlup.client')
 	}
 
 	gameSocket.on('highscore', function(hs) {
-		console.log(arguments);
+		console.log(hs);
 		highscore = hs;
 		$location.path('/highscore');
 	});

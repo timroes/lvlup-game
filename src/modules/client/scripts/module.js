@@ -1,5 +1,6 @@
 angular.module('lvlup.client', [
 	'lvlup.client.templates',
+	'lvlup.shared',
 	'ngRoute',
 	'ngTouch',
 	'LocalStorageModule',

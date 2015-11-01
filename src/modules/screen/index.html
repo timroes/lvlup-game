@@ -4,14 +4,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>LVLUP-GAME</title>
+	<link rel="stylesheet" href="/shared/shared.min.css">
 	<link rel="stylesheet" href="screen.min.css">
 </head>
 <body ng-controller="ScreenController as screen">
 
-	<qrcode ng-model="screen.gameUrl"></qrcode>
+	<highscore scores="screen.highscores"></highscore>
+
+	<qrcode ng-if="!screen.highscores" ng-model="screen.gameUrl"></qrcode>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="libs.min.js"></script>
+
+	<script src="/shared/templates.min.js"></script>
+	<script src="/shared/shared.min.js"></script>
 	<script src="screen.min.js"></script>
 </body>
 </html>

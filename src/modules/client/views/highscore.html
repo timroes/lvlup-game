@@ -1,12 +1,4 @@
-<h1 class="highscore-title">Highscore</h1>
-
-<ul class="highscore">
-	<li ng-repeat="rank in ctrl.highscore.topscores" class="highscore-entry">
-		<span class="highscore-entry__name">{{ rank.username }}</span>
-		<span class="highscore-entry__lvl">Lvl. {{ rank.level }}</span>
-		<span class="highscore-entry__exp">{{ rank.totalExp }}</span>
-	</li>
-</ul>
+<highscore scores="ctrl.highscore.topscores"></highscore>
 
 <div class="your-rank" ng-if="ctrl.highscore.myrank">
 	You rank: #{{ ctrl.highscore.myrank }}
