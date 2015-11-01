@@ -156,7 +156,11 @@ export default class Game {
 	 */
 	endGame() {
 		// TODO: This should somehow really END this game, no other methods allowed
-		// TODO: cancel running endQuestion timeout
+
+		if (this.currentQuestionTimeoutId) {
+			clearTimeout(this.currentQuestionTimeoutId);
+		}
+
 		this.currentQuestion = null;
 
 		let players = Object.keys(this.players).map((sessId) => {
