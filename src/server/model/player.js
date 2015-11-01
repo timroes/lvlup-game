@@ -1,14 +1,16 @@
+import SafeSocket from '../socket/safeSocket';
+
 const expPerLevel = 100;
 
-export default class Player {
+export default class Player extends SafeSocket {
 
 	constructor(sessId, username) {
+		super();
 		this.sessionId = sessId;
 		this.username = username;
 		this.exp = 0;
 		this.lostExp = 0;
 		this.level = 1;
-		this.socket = null;
 	}
 
 	get infos() {
@@ -40,12 +42,6 @@ export default class Player {
 			let lvlsup = Math.floor(tmpExp / expPerLevel);
 			this.level += lvlsup;
 			this.exp = tmpExp % expPerLevel;
-		}
-	}
-
-	emit() {
-		if (this.socket) {
-			this.socket.emit.apply(this.socket, arguments);
 		}
 	}
 
