@@ -1,5 +1,6 @@
 const events = {
-	highscore: 'highscore'
+	highscore: 'highscore',
+	reset: 'reset'
 };
 
 export default class Screen {
