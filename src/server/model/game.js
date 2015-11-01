@@ -135,19 +135,15 @@ export default class Game {
 			let player = this.players[id];
 			let exp = null;
 			if (player.currentAnswer) {
-				// player.lvlup(player.currentAnswer.id === this.currentQuestion.correctId ? winExp : loseExp);
 				exp = this.currentQuestion.expForAnswer(player.currentAnswer);
 				player.lvlup(exp);
-				if (player.socket) {
-					player.socket.emit('player:update', player.lvlInfos);
-				}
+				player.emit('player:update', player.lvlInfos);
 			}
-			if (player.socket) {
-				player.socket.emit('solution', {
-					solved: exp !== null && exp > 0,
-					correctAnswer: this.currentQuestion.correctAnswer
-				});
-			}
+
+			player.emit('solution', {
+				solved: exp !== null && exp > 0,
+				correctAnswer: this.currentQuestion.correctAnswer
+			});
 
 			player.currentAnswer = null;
 		}
