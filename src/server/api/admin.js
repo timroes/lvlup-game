@@ -16,8 +16,16 @@ module.exports = (game) => {
 	});
 
 	router.post('/question', (req, res) => {
-		game.setQuestion(req.body.question);
-		res.send();
+		try {
+			game.setQuestion(req.body.question);
+			res.send();
+		} catch(e) {
+			if (e.name === 'InvalidIdError') {
+				res.status(400).send(e.message);
+			} else {
+				throw e;
+			}
+		}
 	});
 
 	router.post('/endQuestion', (req, res) => {
@@ -25,7 +33,7 @@ module.exports = (game) => {
 		res.send();
 	});
 
-	router.post('/endGame', (req, res) => {
+	router.post('/game/end', (req, res) => {
 		game.endGame();
 		res.send();
 	});

@@ -59,9 +59,14 @@ angular.module('lvlup.client')
 	}
 
 	gameSocket.on('highscore', function(hs) {
-		console.log(hs);
 		highscore = hs;
 		$location.path('/highscore');
+	});
+
+	gameSocket.on('reset', function() {
+		highscore = null;
+		localStorageService.remove(SESSION_KEY);
+		$location.path('/');
 	});
 
 	// If we connect to the socket, we try to authenticate to it with our session id

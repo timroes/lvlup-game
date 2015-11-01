@@ -2,11 +2,16 @@ angular.module('lvlup.admin')
 .factory('game', function($http) {
 
 	function end() {
-		return $http.post('/admin/api/endGame');
+		return $http.post('/admin/api/game/end');
+	}
+
+	function reset() {
+		return $http.post('/admin/api/game/reset');
 	}
 
 	return {
-		end: end
+		end: end,
+		reset: reset
 	};
 
 });

@@ -24,6 +24,11 @@ export default class Screen {
 		this.sockets.emit.apply(this.sockets, arguments);
 	}
 
+	reset() {
+		this._highscore = null;
+		this.emit(events.reset);
+	}
+
 	set highscore(hs) {
 		this._highscore = hs;
 		this.emit(events.highscore, hs);

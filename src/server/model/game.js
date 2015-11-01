@@ -10,23 +10,18 @@ import * as utils from '../utils';
 const timeOverrun = 2; // in seconds
 const highscoreLimit = 10;
 
-const states = {
-	waiting: Symbol("waiting"),
-	question: Symbol("question")
+const events = {
+	reset: 'reset'
 };
 
 export default class Game {
 
 	constructor() {
 		this.io = socketio(server.server);
-		this.state = states.waiting;
-		this.players = {};
-		this.usernames = [];
-		this.questions = {};
-		this.currentQuestion = null;
-		this.highscore = null;
 		this.initSocket();
 		this.initScreen(this.io);
+		this.questions = {};
+		this.reset();
 	}
 
 	initScreen(io) {
@@ -115,7 +110,9 @@ export default class Game {
 		this.allPlayers(player => player.currentAnswer = null);
 
 		if (!this.questions[id]) {
-			throw new Error(`Cannot find question with id ${id}.`);
+			var err = new Error(`Cannot find question with id ${id}.`);
+			err.name = 'InvalidIdError';
+			throw err;
 		}
 
 		let question = Question.parse(this.questions[id]);
@@ -193,7 +190,17 @@ export default class Game {
 	}
 
 	reset() {
-		// TODO: reset the whole game
+		if (this.currentQuestionTimeoutId) {
+			clearTimeout(this.currentQuestionTimeoudId);
+		}
+
+		this.players = {};
+		this.usernames = [];
+		this.currentQuestion = null;
+		this.highscore = null;
+		this.screen.reset();
+
+		this.io.sockets.emit(events.reset);
 	}
 
 	allPlayers(cb) {

@@ -14,4 +14,8 @@ angular.module('lvlup.screen')
 		ctrl.highscores = scores;
 	});
 
+	screenSocket.on('reset', function() {
+		ctrl.highscores = null;
+	});
+
 });

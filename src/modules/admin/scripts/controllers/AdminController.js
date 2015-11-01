@@ -13,6 +13,8 @@ angular.module('lvlup.admin')
 
 	ctrl.endGame = game.end;
 
+	ctrl.resetGame = game.reset;
+
 	ctrl.endQuestion = questions.endQuestion;
 
 	ctrl.setQuestion = questions.setQuestion;
