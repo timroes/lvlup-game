@@ -1,0 +1,36 @@
+.box {
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+		0 3px 1px -2px rgba(0,0,0,.2),
+		0 1px 5px 0 rgba(0,0,0,.12);
+	background-color: white;
+	padding: 0.5em 1em;
+	display: inline-block;
+}
+
+.box-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	h2 {
+		margin: 0;
+		font-weight: 300;
+		color: $accent-color;
+	}
+}
+
+
+.box-header__actions {
+	button {
+		border: none;
+		background: none;
+		padding: 0.5em 1em;
+		color: #555;
+		transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+		&:hover, &:focus {
+			background-color: #EEE;
+			color: #000;
+		}
+	}
+}

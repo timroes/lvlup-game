@@ -9,33 +9,37 @@
 </head>
 <body ng-controller="AdminController as admin">
 	
-	<h1>Admin Interface</h1>
+	<header>
+		<h1 class="header__title">Admin Interface</h1>
+		<div class="header__actions">
+			<button ng-click="admin.endGame()">End Game</button>
+			<button ng-click="admin.resetGame()">Reset Game</button>
+		</div>
+	</header>
 
-	<div class="actions">
-		<button ng-click="admin.endGame()">End Game</button>
-		<button ng-click="admin.resetGame()">Reset Game</button>
-	</div>
-
-	<div class="current-question">
-		<button ng-click="admin.endQuestion()">End question</button>
-	</div>
-
-	<div class="questions">
+	<div class="questions box">
+		<div class="box-header">
+			<h2>Questions</h2>
+			<div class="box-header__actions">
+				<button ng-click="admin.endQuestion()">End current question</button>
+			</div>
+		</div>
 		<div class="question-upload"
-			ngf-drop ngf-select
-			ngf-change="admin.addQuestions($file)"
-			ng-model="uploadedQuestions"
-			accept="application/json" ngf-pattern="'application/json'"
-			ngf-drag-over-class="'drag'">
-			Upload questions
+				ngf-drop ngf-select
+				ngf-change="admin.addQuestions($file)"
+				ng-model="uploadedQuestions"
+				accept="application/json" ngf-pattern="'application/json'"
+				ngf-drag-over-class="'drag'">
+			Click to upload or drag'n'drop questions here
 		</div>
 		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)">
 			<!-- TODO: Icon for type, Exp -->
-			<h1 class="question-title">{{::q.question}}</h1>
-			<ul>
+			<h3 class="question__title">{{::q.question}}</h3>
+			<span class="question__exp">{{::q.exp}} exp</span>
+			<!-- <ul>
 				<li>{{::q.answer}}</li>
 				<li ng-repeat="answer in ::q.wrongAnswers">{{ answer }}</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 

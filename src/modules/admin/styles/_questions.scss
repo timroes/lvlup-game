@@ -1,14 +1,18 @@
 .questions {
 	background-color: white;
+	max-width: 500px;
+	margin: 1em;
 }
 
 .question-upload {
-	line-height: 3em;
 	min-width: 250px;
-	background-color: #EEE;
+	background-color: #F1F1F1;
 	border: 3px dashed #DDD;
 	border-radius: 5px;
 	cursor: pointer;
+	text-align: center;
+	margin: 1em 0;
+	padding: 0.8em;
 
 	&.drag {
 		border-color: $success-color;
@@ -16,10 +20,22 @@
 }
 
 .question {
-
 	cursor: pointer;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
 
 	&:hover, &:focus {
 		background-color: $hover-bg;
 	}
+}
+
+.question__title {
+	font-weight: 300;
+}
+
+.question__exp {
+	flex: 0 0 auto;
+	margin-left: 0.8em;
+	color: #999;
 }

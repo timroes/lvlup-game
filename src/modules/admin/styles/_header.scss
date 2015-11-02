@@ -1,0 +1,24 @@
+header {
+	background-color: $accent-color;
+	color: $text-on-accent;
+	padding: 0.5em 1em;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 0 2px $accent-color;
+}
+
+.header__title {
+	font-weight: 300;
+}
+
+.header__actions button {
+	background: none;
+	border: none;
+	padding: 1em;
+	transition: background-color 0.3s ease-in-out;
+
+	&:hover, &:focus {
+		background-color: darken($accent-color, 20%);
+	}
+}
