@@ -30,7 +30,7 @@ angular.module('lvlup.client')
 				if (current > 0 && scope.enabled) {
 					requestAnimFrame(changeProgress);
 				} else {
-					console.log("request animation end!", current);
+					bar.css('width', '0');
 					scope.$apply(function() {
 						scope.onEnd();
 					});
