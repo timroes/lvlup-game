@@ -1,10 +1,13 @@
+$playerinfo-bg: $darkblue;
+
 .player-info {
 	position: fixed;
 	width: 100%;
 	bottom: 0;
-	box-shadow: 0 0 4px #AAA;
+	background-color: $playerinfo-bg;
+	color: white;
+	box-shadow: 0 0 4px $playerinfo-bg;
 	padding: 0.4rem 0.8rem;
-	background-color: white;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -24,8 +27,8 @@
 	stroke: #ff9F1E;
 }
 #svg circle {
-  stroke-dashoffset: 150;
-  transition: stroke-dashoffset 1s linear;
-  stroke: #666;
-  stroke-width: 4px;
+	stroke-dashoffset: 150;
+	transition: stroke-dashoffset 1s linear;
+	stroke: #666;
+	stroke-width: 4px;
 }
