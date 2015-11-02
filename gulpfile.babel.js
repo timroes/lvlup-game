@@ -13,6 +13,7 @@ const dirs = {
 };
 
 const src = {
+	assets: 'assets/**',
 	html: '*.html',
 	scripts: 'scripts/**/*.js',
 	styles: 'styles/**/*.scss',
@@ -29,6 +30,12 @@ var server = _.liveServer([`${dirs.build}/index.js`], null, false);
 modules.forEach((module) => {
 
 	let moddir = `src/modules/${module}/`;
+
+	gulp.task(`${module}:assets`, () => {
+		return gulp.src(moddir + src.assets, { base: moddir })
+			.pipe(gulp.dest(`${out.modules}/${module}`))
+			.pipe(_.livereload());
+	});
 
 	gulp.task(`${module}:scripts`, () => {
 		return gulp.src(moddir + src.scripts)
@@ -103,9 +110,10 @@ modules.forEach((module) => {
 		gulp.watch(moddir + src.scripts, [`${module}:scripts`]);
 		gulp.watch(moddir + src.styles, [`${module}:styles`]);
 		gulp.watch(moddir + src.templates, [`${module}:templates`]);
+		gulp.watch(moddir + src.assets, [`${module}:assets`]);
 	});
 
-	gulp.task(`${module}:build`, ['scripts', 'styles', 'html', 'libs', 'libs:styles', 'templates']
+	gulp.task(`${module}:build`, ['assets', 'scripts', 'styles', 'html', 'libs', 'libs:styles', 'templates']
 		.map(job => `${module}:${job}`));
 
 });
