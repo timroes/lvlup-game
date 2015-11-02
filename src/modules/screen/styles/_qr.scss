@@ -1,6 +1,22 @@
 .qrcode {
 	max-width: 100%;
 	max-height: 100vh;
+	height: 100vh;
 	display: block;
-	margin: 0 auto
+	margin: 0 auto;
+	position: absolute;
+	left: 2rem;
+	right: 2rem;
+	bottom: 0;
+}
+
+.qrcode.minimized {
+	position: absolute;
+	bottom: 2rem;
+	right: 2rem;
+	max-width: 15vw;
+	height: 15vw;
+	top: auto;
+	left: auto;
+	box-shadow: 0 0 10px #555;
 }

@@ -12,6 +12,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "angular": "^1.4.7",
+    "angular-chart.js": "^0.8.5",
     "angular-local-storage": "^0.2.2",
     "angular-route": "^1.4.7",
     "angular-socket-io": "^0.7.0",

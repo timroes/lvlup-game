@@ -1,6 +1,7 @@
 const events = {
 	highscore: 'highscore',
-	reset: 'reset'
+	reset: 'reset',
+	statistics: 'statistics'
 };
 
 export default class Screen {
@@ -16,23 +17,27 @@ export default class Screen {
 			// TODO: do we need to send the screen something when connected
 
 			if (this._highscore) {
-				this.emit(events.highscore, this._highscore);
+				this._emit(events.highscore, this._highscore);
 			}
 		});
 	}
 
-	emit() {
+	_emit() {
 		this.sockets.emit.apply(this.sockets, arguments);
 	}
 
 	reset() {
 		this._highscore = null;
-		this.emit(events.reset);
+		this._emit(events.reset);
 	}
 
 	set highscore(hs) {
 		this._highscore = hs;
-		this.emit(events.highscore, hs);
+		this._emit(events.highscore, hs);
+	}
+
+	set answerStatistics(statistics) {
+		this._emit(events.statistics, statistics);
 	}
 
 }

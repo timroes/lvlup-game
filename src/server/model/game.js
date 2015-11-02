@@ -134,6 +134,12 @@ export default class Game {
 			clearTimeout(this.currentQuestionTimeoutId);
 		}
 
+		let statistics = {
+			correct: 0,
+			wrong: 0,
+			noanswer: 0
+		};
+
 		for (let id in this.players) {
 			let player = this.players[id];
 			let exp = null;
@@ -141,6 +147,9 @@ export default class Game {
 				exp = this.currentQuestion.expForAnswer(player.currentAnswer);
 				player.lvlup(exp);
 				player.emit('player:update', player.lvlInfos);
+				statistics[exp > 0 ? 'correct': 'wrong']++;
+			} else {
+				statistics.noanswer++;
 			}
 
 			player.emit('solution', {
@@ -150,6 +159,8 @@ export default class Game {
 
 			player.currentAnswer = null;
 		}
+
+		this.screen.answerStatistics = statistics;
 
 		this.currentQuestion = null;
 	}

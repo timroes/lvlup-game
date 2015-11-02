@@ -1,5 +1,6 @@
 angular.module('lvlup.screen', [
 	'lvlup.shared',
 	'ngTouch',
-	'btford.socket-io'
+	'btford.socket-io',
+	'chart.js'
 ]);

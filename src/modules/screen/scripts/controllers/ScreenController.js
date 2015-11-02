@@ -7,15 +7,27 @@ angular.module('lvlup.screen')
 
 	ctrl.gameUrl = $location.absUrl().replace(/screen[/]?$/, '');
 
-	// ctrl.
+	function minimizeQrCode() {
+		ctrl.qrcodeclass = 'minimized';
+	}
+
+	function maximizeQrCode() {
+		ctrl.qrcodeclass = '';
+	}
+
+	screenSocket.on('statistics', function(stats) {
+		ctrl.statistics = stats;
+		minimizeQrCode();
+	});
 
 	screenSocket.on('highscore', function(scores) {
-		console.log(scores);
 		ctrl.highscores = scores;
+		minimizeQrCode();
 	});
 
 	screenSocket.on('reset', function() {
 		ctrl.highscores = null;
 	});
+
 
 });

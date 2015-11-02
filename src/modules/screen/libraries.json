@@ -4,5 +4,7 @@
 	{ "id": "angular-touch", "scripts": ["angular-touch.min.js"] },
 	{ "id": "angular-local-storage", "scripts": ["dist/angular-local-storage.min.js"] },
 	{ "id": "angular-socket-io", "scripts": ["socket.min.js"] },
-	{ "id": "qrcode", "scripts": ["build/qrcode.min.js"] }
+	{ "id": "qrcode", "scripts": ["build/qrcode.min.js"] },
+	{ "id": "chart.js", "scripts": ["Chart.min.js"] },
+	{ "id": "angular-chart.js", "scripts": ["dist/angular-chart.min.js"], "styles": ["dist/angular-chart.min.css"] }
 ]
