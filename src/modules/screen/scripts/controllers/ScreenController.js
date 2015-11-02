@@ -27,6 +27,8 @@ angular.module('lvlup.screen')
 
 	screenSocket.on('reset', function() {
 		ctrl.highscores = null;
+		ctrl.statistics = null;
+		maximizeQrCode();
 	});
 
 

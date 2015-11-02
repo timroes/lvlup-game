@@ -9,7 +9,7 @@
 </head>
 <body ng-controller="ScreenController as screen">
 
-	<answer-statistics stats="screen.statistics"></answer-statistics>
+	<answer-statistics ng-if="!screen.highscores" stats="screen.statistics"></answer-statistics>
 
 	<highscore scores="screen.highscores"></highscore>
 
