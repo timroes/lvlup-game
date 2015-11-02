@@ -5,6 +5,13 @@
 
 .login__info {
 	color: #555;
+	margin: 0.5em 0;
+}
+
+.login__error {
+	color: $error-text;
+	margin: 0.5em 0;
+	font-weight: 500;
 }
 
 .login__name {

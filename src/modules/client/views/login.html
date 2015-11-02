@@ -2,6 +2,11 @@
 	<form class="login__form" ng-submit="login.login()">
 		<h1 class="login__title">Join the game!</h1>
 		<p class="login__info">Name will be public and must have at least 3 characters.</p>
+
+		<p class="login__error" ng-if="login.error === 'invalidUsername'" role="alert">Invalid username. Please choose another one.</p>
+		<p class="login__error" ng-if="login.error === 'duplicateUsername'" role="alert">Name already in use. Please choose another one.</p>
+		<p class="login__error" ng-if="login.error === 'generalError'" role="alert">An error occurred. Please try again.</p>
+
 		<input type="text" placeholder="Your Nickname" class="login__name" ng-model="login.name" required pattern=".{3,}">
 		<button class="login__submit" type="submit">Join Game</button>
 	</form>
