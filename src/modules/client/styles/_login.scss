@@ -1,6 +1,5 @@
 .login__title {
-	font-weight: 300;
-	color: $darkblue;
+	@include big-title();
 }
 
 .login__info {

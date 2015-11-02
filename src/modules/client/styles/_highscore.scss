@@ -3,3 +3,7 @@
 	margin: 1em 0;
 	font-weight: 700;
 }
+
+.highscore-title {
+	@include big-title();
+}

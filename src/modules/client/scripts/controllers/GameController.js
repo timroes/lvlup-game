@@ -18,7 +18,6 @@ angular.module('lvlup.client')
 	};
 
 	ctrl.lockAnswers = function() {
-		console.log('lockAnswers');
 		ctrl.answeringEnabled = false;
 	};
 

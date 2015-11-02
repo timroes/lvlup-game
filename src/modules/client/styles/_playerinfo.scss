@@ -9,6 +9,7 @@ $playerinfo-bg: $darkblue;
 	box-shadow: 0 0 4px $playerinfo-bg;
 	padding: 0.4rem 0.8rem;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -16,19 +17,16 @@ $playerinfo-bg: $darkblue;
 .player-info__name {
 	font-size: 1em;
 	font-weight: 300;
+	margin: 0;
+	flex: 1 1 0;
 }
 
 .player-info__lvl {
-	flex: 0 0 40px;
-	text-align: center;
+	flex: 0 0 auto;
+	text-align: right;
 }
 
-#svg #exp-bar {
-	stroke: #ff9F1E;
-}
-#svg circle {
-	stroke-dashoffset: 150;
-	transition: stroke-dashoffset 1s linear;
-	stroke: #666;
-	stroke-width: 4px;
+.player-info__expbar {
+	flex: 1 1 100%;
+	margin: 0.4em 0 0.2em;
 }

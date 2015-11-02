@@ -18,12 +18,6 @@
 
 <div class="player-info">
 	<h1 class="player-info__name">{{ game.player.username }}</h1>
-	<div class="player-info__lvl">
-		<!-- <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-			<circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-			<circle id="exp-bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-		</svg> -->
-		<span class="player-info__lvl-label">{{ game.player.level }}</span>
-	</div>
-	<div>Exp. {{ game.player.exp }}</div>
+	<div class="player-info__lvl">Lvl. {{ game.level }}</div>
+	<exp-bar class="player-info__expbar" exp="game.player.exp" level="game.player.level" level-delayed="game.level"></exp-bar>
 </div>
