@@ -1,7 +1,8 @@
 <div class="login">
-	<h1>Join the game!</h1>
-	<form ng-submit="login.login()">
-		<input type="text" placeholder="Your Name" class="login-name" ng-model="login.name" required pattern=".{3,}">
-		<button type="submit">Join Game</button>
+	<form class="login__form" ng-submit="login.login()">
+		<h1 class="login__title">Join the game!</h1>
+		<p class="login__info">Name will be public and must have at least 3 characters.</p>
+		<input type="text" placeholder="Your Nickname" class="login__name" ng-model="login.name" required pattern=".{3,}">
+		<button class="login__submit" type="submit">Join Game</button>
 	</form>
 </div>

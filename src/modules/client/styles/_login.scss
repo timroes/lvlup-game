@@ -1,3 +1,33 @@
-.login-name {
-	border: 1px solid #AAA;
+.login__title {
+	font-weight: 300;
+	color: $darkblue;
+}
+
+.login__info {
+	color: #555;
+}
+
+.login__name {
+	border: none;
+	border-bottom: 1px solid #AAA;
+	margin: 1em 0;
+	padding: 0.3em 0;
+	outline: none;
+}
+
+.login__submit {
+	border: none;
+	background-color: $darkblue;
+	color: white;
+	padding: 0 0.8em;
+	line-height: 2.5;
+	text-transform: uppercase;
+	@include shadow();
+}
+
+.login__form {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5em;
+	text-align: center;
 }

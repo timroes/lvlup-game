@@ -50,6 +50,7 @@ modules.forEach((module) => {
 		return gulp.src(moddir + src.styles)
 			.pipe(_.sass())
 			.pipe(_.concat(`${module}.min.css`))
+			.pipe(_.autoprefixer())
 			// .pipe(_.combineMediaQueries())
 			.pipe(_.minifyCss())
 			.pipe(gulp.dest(`${out.modules}/${module}`))
