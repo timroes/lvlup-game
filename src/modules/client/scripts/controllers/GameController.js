@@ -40,9 +40,8 @@ angular.module('lvlup.client')
 	$scope.$on('game:question', function(ev, question, timeRemaining) {
 		ctrl.answeringEnabled = true;
 		ctrl.question = question;
-		ctrl.timeRemaining = timeRemaining;
+		ctrl.questionEndTime = Date.now() + timeRemaining;
 		ctrl.solution = null;
-		$rootScope.$emit('answerCountdown:reset');
 	});
 
 	$scope.$on('game:highscore', function(ev, highscore) {

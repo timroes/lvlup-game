@@ -15,7 +15,8 @@ angular.module('lvlup.client')
 	return {
 		restrict: 'E',
 		scope: {
-			remaining: '=',
+			enabled: '=',
+			until: '=',
 			total: '=',
 			onEnd: '&'
 		},
@@ -23,12 +24,13 @@ angular.module('lvlup.client')
 			var bar = element, endTime, total;
 
 			function changeProgress() {
-				var current = (endTime - Date.now()) / total;
+				var current = (scope.until - Date.now()) / total;
 				bar.css('width', (current * 100) + '%');
 
-				if (current > 0) {
+				if (current > 0 && scope.enabled) {
 					requestAnimFrame(changeProgress);
 				} else {
+					console.log("request animation end!", current);
 					scope.$apply(function() {
 						scope.onEnd();
 					});
@@ -36,17 +38,22 @@ angular.module('lvlup.client')
 			}
 
 			function startCountdown() {
-				if (!scope.total || !scope.remaining) return;
+				if (!scope.total || !scope.until) return;
 
-				endTime = Date.now() + scope.remaining;
 				total = scope.total;
 
 				requestAnimFrame(changeProgress);
 			}
 
-			scope.$watch('remaining', startCountdown);
+			scope.$watch('until', startCountdown);
 
-			$rootScope.$on('answerCountdown:reset', startCountdown);
+			scope.$watch('enabled', function(value) {
+				if (value) {
+					bar.css('display', 'block');
+				} else {
+					bar.css('display', 'none');
+				}
+			});
 
 		}
 	};
