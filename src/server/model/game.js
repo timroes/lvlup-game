@@ -216,7 +216,7 @@ export default class Game {
 
 	reset() {
 		if (this.currentQuestionTimeoutId) {
-			clearTimeout(this.currentQuestionTimeoudId);
+			clearTimeout(this.currentQuestionTimeoutId);
 		}
 
 		this.players = {};
