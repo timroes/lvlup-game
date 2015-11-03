@@ -13,7 +13,7 @@ angular.module('lvlup.screen')
 				segmentShowStroke: false
 			};
 			scope.statsLabels = ['Correct', 'Wrong', 'No Answer'];
-			scope.colors = ['#4CAF50', '#F44336', '#607D8B'];
+			scope.colors = ['#4CAF50', '#F44336', '#CCCCCC'];
 			scope.$watch('stats', function(stats) {
 				if (stats) {
 					scope.statsData = [
