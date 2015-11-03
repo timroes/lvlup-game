@@ -1,6 +1,6 @@
 import * as utils from '../utils';
 
-const timePerQuestionDefault = 30; // in seconds
+const timePerQuestionDefault = 20; // in seconds
 const timePerQuestionFactor = 1.0;
 
 export default class Question {
