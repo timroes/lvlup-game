@@ -1,6 +1,6 @@
 var http = require('http');
 
-for (var x = 1; x < 40; x++) {
+for (var x = 1; x < 400; x++) {
 	var data = JSON.stringify({
 		name: 'Player ' + x
 	});

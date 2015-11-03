@@ -21,6 +21,15 @@ export default class Player extends SafeSocket {
 		};
 	}
 
+	get infosForAdmin() {
+		return {
+			username: this.username,
+			level: this.level,
+			exp: this.exp,
+			totalExp: this.totalExp
+		};
+	}
+
 	get lvlInfos() {
 		return {
 			exp: this.exp,

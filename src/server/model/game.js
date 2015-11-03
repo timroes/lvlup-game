@@ -5,6 +5,7 @@ const q = require('q'),
 import Question from './question';
 import Player from './player';
 import Screen from './screen';
+import Admin from './admin';
 import * as utils from '../utils';
 
 const timeOverrun = 2; // in seconds
@@ -20,8 +21,17 @@ export default class Game {
 		this.io = socketio(server.server);
 		this.initSocket();
 		this.initScreen(this.io);
+		this.initAdmin(this.io);
+		this.admin = new Admin(this.io);
 		this.questions = {};
 		this.reset();
+	}
+
+	initAdmin(io) {
+		this.admin = new Admin(io);
+		this.admin.onConnect(() => {
+			this.admin.updatePlayers(this.players);
+		});
 	}
 
 	initScreen(io) {
@@ -88,6 +98,8 @@ export default class Game {
 		} while(this.players.hasOwnProperty(sessionId));
 
 		this.players[sessionId] = new Player(sessionId, username);
+
+		this.admin.playerJoined(this.players[sessionId]);
 
 		return q.when(sessionId);
 	}
@@ -162,6 +174,8 @@ export default class Game {
 
 		this.screen.answerStatistics = statistics;
 
+		this.admin.updatePlayers(this.players);
+
 		this.currentQuestion = null;
 	}
 
@@ -210,6 +224,7 @@ export default class Game {
 		this.currentQuestion = null;
 		this.highscore = null;
 		this.screen.reset();
+		this.admin.reset();
 
 		this.io.sockets.emit(events.reset);
 	}

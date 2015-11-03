@@ -1,5 +1,5 @@
 angular.module('lvlup.admin')
-.controller('AdminController', function($scope, game, questions, fileReader) {
+.controller('AdminController', function($rootScope, game, questions, fileReader, players) {
 
 	var ctrl = this;
 
@@ -31,5 +31,24 @@ angular.module('lvlup.admin')
 				});
 		}
 	};
+
+	ctrl.players = [];
+
+	players.get().then(function(players) {
+		ctrl.players = ctrl.players.concat(players);
+	});
+
+	$rootScope.$on('game:player:join', function(ev, info) {
+		ctrl.players.push(info);
+	});
+
+	$rootScope.$on('game:reset', function() {
+		ctrl.players = [];
+	});
+
+	$rootScope.$on('game:players', function(ev, players) {
+		console.log("Hello??");
+		ctrl.players = players;
+	});
 
 });

@@ -43,6 +43,21 @@
 		</div>
 	</div>
 
+	<div class="players box">
+		<div class="box-header">
+			<h2>Users</h2>
+			<div class="box-header__actions">
+				<span class="players__count">{{admin.players.length}}</span>
+			</div>
+		</div>
+		<ul class="playerlist">
+			<li ng-repeat="player in admin.players | orderBy:'-totalExp'">
+				<h2 class="player__username">{{::player.username}}</h2>
+				<div class="player__info">Lvl. {{::player.level}} + {{::player.exp}} exp ({{::player.totalExp}} exp)</div>
+			</li>
+		</ul>
+	</div>
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="libs.min.js"></script>
 

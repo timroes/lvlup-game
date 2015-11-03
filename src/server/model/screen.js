@@ -1,43 +1,41 @@
+import NamespaceSocket from '../socket/namespaceSocket';
+
 const events = {
 	highscore: 'highscore',
 	reset: 'reset',
 	statistics: 'statistics'
 };
 
-export default class Screen {
+export default class Screen extends NamespaceSocket {
 
 	constructor(io) {
-		this.initSocket(io);
+		super(io, 'screen');
+		this.initSocket();
 	}
 
-	initSocket(io) {
-		this.sockets = io.of('/screen');
+	initSocket() {
 		this.sockets.on('connection', (socket) => {
 			// TODO: do some kind of authentication here (perhaps in a base class)
 			// TODO: do we need to send the screen something when connected
 
 			if (this._highscore) {
-				this._emit(events.highscore, this._highscore);
+				this.emit(events.highscore, this._highscore);
 			}
 		});
 	}
 
-	_emit() {
-		this.sockets.emit.apply(this.sockets, arguments);
-	}
-
 	reset() {
 		this._highscore = null;
-		this._emit(events.reset);
+		this.emit(events.reset);
 	}
 
 	set highscore(hs) {
 		this._highscore = hs;
-		this._emit(events.highscore, hs);
+		this.emit(events.highscore, hs);
 	}
 
 	set answerStatistics(statistics) {
-		this._emit(events.statistics, statistics);
+		this.emit(events.statistics, statistics);
 	}
 
 }
