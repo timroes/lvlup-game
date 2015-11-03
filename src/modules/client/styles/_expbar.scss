@@ -2,15 +2,15 @@
 	height: 10px;
 	background-color: white;
 	border-radius: 5px;
-	padding: 2px 2px;
+	padding: 3px 3px;
 	box-shadow: 1px 1px 2px #999 inset;
 }
 
 .expbar__bar {
 	display: block;
-	height: 6px;
+	height: 4px;
 	background-color: $accent-color;
-	border-radius: 3px;
+	border-radius: 2px;
 	transition: width 1s ease-out;
 	box-shadow: 1px 1px 2px #999;
 }
