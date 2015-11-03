@@ -1,5 +1,12 @@
 [
 	{
+		"type": "text",
+		"question": "Enter the name Alan Turing:",
+		"answers": ["Alan Turing", "Turing", "Alan M. Turing", "Alan Mathison Turing"],
+		"exp": 50,
+		"time": 10
+	},
+	{
 		"type": "choice",
 		"question": "What is it good for, but with some longer text to have multiple lines?",
 		"answer": "Absolutely Nothing but as multiline answer with long text",

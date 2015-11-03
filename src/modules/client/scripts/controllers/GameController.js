@@ -5,25 +5,27 @@ angular.module('lvlup.client')
 
 	game.connect($scope);
 
-	ctrl.answer = function(id) {
+	ctrl.answer = function(answer) {
+		if (!ctrl.answeringEnabled) return;
+
 		ctrl.answeringEnabled = false;
 		// TODO: show transmitting indicator
-		game.setAnswer(id).then(function() {
+		game.setAnswer(answer).then(function() {
 			// TODO: hide transmitting indicator
-			ctrl.chosenAnswer = id;
+			ctrl.chosenAnswer = answer;
 		})
 		.catch(function() {
 			// TODO: Could not set answer (should be output anything)
 		});
 	};
 
-	ctrl.lockAnswers = function() {
+	ctrl.timeUp = function() {
 		ctrl.answeringEnabled = false;
 	};
 
 	$scope.$on('game:answer-chosen', function(ev, answer) {
 		ctrl.answeringEnabled = false;
-		ctrl.chosenAnswer = answer.id;
+		ctrl.chosenAnswer = answer;
 	});
 
 	$scope.$on('game:player', function(ev, player) {
@@ -37,6 +39,7 @@ angular.module('lvlup.client')
 	});
 
 	$scope.$on('game:question', function(ev, question, timeRemaining) {
+		ctrl.chosenAnswer = null;
 		ctrl.answeringEnabled = true;
 		ctrl.question = question;
 		ctrl.questionEndTime = Date.now() + timeRemaining;

@@ -11,6 +11,8 @@ export default class Question {
 	static parse(json) {
 		if (json.type === 'choice') {
 			return new ChoiceQuestion(json);
+		} else if (json.type === 'text') {
+			return new TextQuestion(json);
 		} else {
 			throw new Error(`Cannot generate question of unknown type '${json.type}'.`)
 		}
@@ -90,11 +92,41 @@ class ChoiceQuestion extends Question {
 	}
 
 	validateAnswer(answer) {
-		return answer.id === this.correctId;
+		return answer === this.correctId;
 	}
 
 	get correctAnswer() {
 		return this.correctId;
 	}
 
+}
+
+class TextQuestion extends Question {
+
+	constructor(json) {
+		super(json);
+
+		this.question = json.question;
+		this.answers = Array.isArray(json.answers) ? json.answers : [json.answers];
+		this.solution = this.answers[0];
+		this.answers = this.answers.map(this.normalizeAnswer);
+	}
+
+	get clientJson() {
+		let json = super.clientJson;
+		json.question = this.question;
+		return json;
+	}
+
+	validateAnswer(answer) {
+		return this.answers.indexOf(this.normalizeAnswer(answer)) >= 0;
+	}
+
+	get correctAnswer() {
+		return this.solution;
+	}
+
+	normalizeAnswer(answer) {
+		return (answer || '').replace(/[\W_]/g, '').toLowerCase();
+	}
 }

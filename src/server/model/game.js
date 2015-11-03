@@ -41,6 +41,7 @@ export default class Game {
 	initSocket() {
 		this.io.on('connection', (socket) => {
 
+			// TODO: move to player class
 			// TODO: Use two channels one for authenticated users one for pre authentication
 
 			socket.on('authenticate', (data, callback) => {
@@ -58,7 +59,7 @@ export default class Game {
 						socket.emit('question', this.currentQuestion.clientJson, this.currentQuestion.timeRemaining);
 					}
 					if (player.currentAnswer) {
-						socket.emit('answer-chosen', player.currentAnswer);
+						socket.emit('answer-chosen', player.currentAnswer.answer);
 					}
 				}
 			});
@@ -156,7 +157,7 @@ export default class Game {
 			let player = this.players[id];
 			let exp = null;
 			if (player.currentAnswer) {
-				exp = this.currentQuestion.expForAnswer(player.currentAnswer);
+				exp = this.currentQuestion.expForAnswer(player.currentAnswer.answer);
 				player.lvlup(exp);
 				player.emit('player:update', player.lvlInfos);
 				statistics[exp > 0 ? 'correct': 'wrong']++;
@@ -165,7 +166,7 @@ export default class Game {
 			}
 
 			player.emit('solution', {
-				solved: exp !== null && exp > 0,
+				solved: exp === null ? exp : exp > 0,
 				correctAnswer: this.currentQuestion.correctAnswer
 			});
 

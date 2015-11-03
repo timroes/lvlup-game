@@ -1,13 +1,28 @@
-<question-countdown enabled="game.questionEndTime && !game.solution" until="game.questionEndTime" total="game.question.time" on-end="game.lockAnswers()"></question-countdown>
+<question-countdown enabled="game.questionEndTime && !game.solution" until="game.questionEndTime" total="game.question.time" on-end="game.timeUp()"></question-countdown>
 
 <div class="question" ng-show="game.question">
-	<div class="question-body">{{ game.question.question }}</div>
-	<div class="question-answers">
-		<button type="button" class="question-answer" ng-disabled="!game.answeringEnabled"
-				ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id, 'question-answer--correct': game.solution.correctAnswer === answer.id, 'question-answer--wrong': game.chosenAnswer === answer.id && game.solution.solved === false }"
-				ng-repeat="answer in game.question.answers" ng-click="game.answer(answer.id)" >
-			{{ answer.answer }}
-		</button>
+	<div ng-if="game.question.type === 'choice'">
+		<div class="question-body">{{ game.question.question }}</div>
+		<div class="question-answers">
+			<button type="button" class="question-answer" ng-disabled="!game.answeringEnabled"
+					ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id, 'question-answer--correct': game.solution.correctAnswer === answer.id, 'question-answer--wrong': game.chosenAnswer === answer.id && game.solution.solved === false }"
+					ng-repeat="answer in game.question.answers" ng-click="game.answer(answer.id)" >
+				{{ answer.answer }}
+			</button>
+		</div>
+	</div>
+	<div ng-if="game.question.type === 'text'">
+		<div class="question-body">{{ game.question.question }}</div>
+		<form ng-submit="game.answer(game.chosenAnswer)">
+			<input type="text" placeholder="Enter Your Answer" class="question-input" ng-class="{ 'question-input--correct': game.solution.solved, 'question-input--wrong': game.solution.solved === false }" ng-model="game.chosenAnswer" ng-disabled="!game.answeringEnabled">
+			<button class="question-submit" type="submit" ng-disabled="!game.answeringEnabled || !game.chosenAnswer">
+				<i class="icon-ok" ng-if="game.answeringEnabled"></i>
+				<i class="icon-lock" ng-if="!game.answeringEnabled"></i>
+			</button>
+		</form>
+		<p class="question-solution" ng-if="game.solution && game.solution.solved !== true">
+			{{ game.solution.correctAnswer }}
+		</p>
 	</div>
 </div>
 
