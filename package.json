@@ -1,7 +1,7 @@
 {
   "name": "lvlup-game",
   "version": "0.1.0-SNAPSHOT",
-  "description": "",
+  "description": "A simple quiz game, that you can play with a crowd of smartphone owners.",
   "main": "gulpfile.js",
   "scripts": {
     "install": "node_modules/.bin/gulp build",
@@ -47,5 +47,6 @@
     "http-auth": "^2.2.8",
     "q": "^1.4.1",
     "socket.io": "^1.3.7"
-  }
+  },
+  "repository": "timroes/lvlup-game"
 }
