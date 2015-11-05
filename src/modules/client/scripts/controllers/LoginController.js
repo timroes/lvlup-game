@@ -3,13 +3,9 @@ angular.module('lvlup.client')
 
 	var ctrl = this;
 
-	if (game.getSession()) {
-		$location.path('/game');
-	}
-
 	ctrl.login = function() {
 		ctrl.error = null;
-		game.login(this.name)
+		game.login(ctrl.name)
 			.then(function() {
 				$location.path('/game');
 			})

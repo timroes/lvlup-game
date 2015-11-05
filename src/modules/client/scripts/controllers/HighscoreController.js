@@ -1,11 +1,10 @@
 angular.module('lvlup.client')
-.controller('HighscoreController', function(game, $location) {
+.controller('HighscoreController', function(game) {
 	var ctrl = this;
 
-	ctrl.highscore = game.getHighscore();
+	game.getHighscore()
+		.then(function(highscore) {
+			ctrl.highscore = highscore;
+		});
 
-	if (!ctrl.highscore) {
-		// If no highscore is available we should not be on this page.
-		$location.path('/');
-	}
 });

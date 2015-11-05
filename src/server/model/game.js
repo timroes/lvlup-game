@@ -12,6 +12,7 @@ const timeOverrun = 2; // in seconds
 const highscoreLimit = 10;
 
 const events = {
+	gameEnded: 'end',
 	reset: 'reset'
 };
 
@@ -62,6 +63,17 @@ export default class Game {
 						socket.emit('answer-chosen', player.currentAnswer.answer);
 					}
 				}
+			});
+
+			socket.on('getHighscore', (callback) => {
+				callback({
+					topscores: this.highscore,
+					myrank: socket.player.rank
+				});
+			});
+
+			socket.on('hasEnded', (callback) => {
+				callback(!!this.highscore);
 			});
 
 			socket.on('getPlayer', (callback) => {
@@ -213,9 +225,11 @@ export default class Game {
 		this.screen.highscore = this.highscore;
 
 		players.forEach((player, rank) => {
+			// TODO: handle players with same exps
 			player.rank = rank + 1;
-			player.emitHighscore(this.highscore);
 		});
+
+		this.io.sockets.emit(events.gameEnded);
 
 	}
 

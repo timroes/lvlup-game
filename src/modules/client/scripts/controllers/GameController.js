@@ -1,5 +1,5 @@
 angular.module('lvlup.client')
-.controller('GameController', function($rootScope, $scope, game) {
+.controller('GameController', function($scope, $location, game) {
 
 	var ctrl = this;
 
@@ -51,13 +51,14 @@ angular.module('lvlup.client')
 		ctrl.solution = null;
 	});
 
-	$scope.$on('game:highscore', function(ev, highscore) {
-		ctrl.highscore = highscore;
-	});
-
 	$scope.$on('game:solution', function(ev, solution) {
 		ctrl.solution = solution;
 		ctrl.answeringEnabled = false;
+	});
+
+	// If the game ends continue to the highscore screen
+	$scope.$on('game:end', function() {
+		$location.path('/highscore');
 	});
 
 	$scope.$on('game:connect', function() {

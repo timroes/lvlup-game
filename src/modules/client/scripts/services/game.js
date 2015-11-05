@@ -1,18 +1,41 @@
 angular.module('lvlup.client')
-.factory('game', function($q, $http, $location, localStorageService, gameSocket) {
+.factory('game', function($q, $http, $rootScope, $location, localStorageService, gameSocket) {
 
 	var SESSION_KEY = 'session';
-	var highscore = null;
 
 	function socketAuth() {
-		gameSocket.emit('authenticate', { session: getSession() }, function(sess) {
-			if (!sess) {
-				localStorageService.remove(SESSION_KEY);
-				// TODO: forward to an error start page instead,
-				// our session is not valid (anymore)
-				$location.path('/');
+		if (getSession()) {
+			gameSocket.emit('authenticate', { session: getSession() }, function(valid) {
+				console.log("is current session valid?", valid);
+				if (!valid) {
+					localStorageService.remove(SESSION_KEY);
+					// TODO: forward to an error start page instead,
+					// our session is not valid (anymore)
+					$location.path('/');
+				}
+			});
+			
+		}
+	}
+
+	function getHighscore() {
+		var defer = $q.defer();
+		gameSocket.emit('getHighscore', function(highscore) {
+			if (highscore) {
+				defer.resolve(highscore);
+			} else {
+				defer.reject();
 			}
 		});
+		return defer.promise;
+	}
+
+	function hasEnded() {
+		var defer = $q.defer();
+		gameSocket.emit('hasEnded', function(ended) {
+			return defer.resolve(ended);
+		});
+		return defer.promise;
 	}
 
 	function getSession(name) {
@@ -46,7 +69,7 @@ angular.module('lvlup.client')
 			'answer-chosen',
 			'connect',
 			'disconnect',
-			'highscore',
+			'end',
 			'player',
 			'player:update',
 			'question',
@@ -66,17 +89,7 @@ angular.module('lvlup.client')
 		return defer.promise;
 	}
 
-	function getHighscore() {
-		return highscore;
-	}
-
-	gameSocket.on('highscore', function(hs) {
-		highscore = hs;
-		$location.path('/highscore');
-	});
-
 	gameSocket.on('reset', function() {
-		highscore = null;
 		localStorageService.remove(SESSION_KEY);
 		$location.path('/');
 	});
@@ -95,7 +108,8 @@ angular.module('lvlup.client')
 		connect: connect,
 		setAnswer: setAnswer,
 		getHighscore: getHighscore,
-		getPlayer: getPlayer
+		getPlayer: getPlayer,
+		hasEnded: hasEnded
 	};
 
 });
