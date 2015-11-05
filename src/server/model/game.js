@@ -53,9 +53,6 @@ export default class Game {
 					socket.player = player;
 					player.socket = socket;
 					socket.emit('player', player.infos);
-					if (this.highscore) {
-						player.emitHighscore(this.highscore);
-					}
 					if (this.currentQuestion) {
 						socket.emit('question', this.currentQuestion.clientJson, this.currentQuestion.timeRemaining);
 					}

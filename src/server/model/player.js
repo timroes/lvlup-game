@@ -53,11 +53,4 @@ export default class Player extends SafeSocket {
 		}
 	}
 
-	emitHighscore(highscores) {
-		this.emit('highscore', {
-			topscores: highscores,
-			myrank: this.rank
-		});
-	}
-
 }
