@@ -5,6 +5,11 @@ angular.module('lvlup.client')
 
 	game.connect($scope);
 
+	// Load player data when controller is initialized
+	game.getPlayer().then(function(player) {
+		ctrl.player = player;
+	});
+
 	ctrl.answer = function(answer) {
 		if (!ctrl.answeringEnabled) return;
 

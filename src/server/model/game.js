@@ -64,6 +64,10 @@ export default class Game {
 				}
 			});
 
+			socket.on('getPlayer', (callback) => {
+				callback(socket.player && socket.player.infos);
+			});
+
 			socket.on('answer', (data, callback) => {
 				if (
 					this.currentQuestion // there must be a question

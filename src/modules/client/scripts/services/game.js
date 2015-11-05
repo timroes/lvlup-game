@@ -29,6 +29,18 @@ angular.module('lvlup.client')
 		});
 	}
 
+	function getPlayer() {
+		var defer = $q.defer();
+		gameSocket.emit('getPlayer', function(info) {
+			if (info) {
+				defer.resolve(info);
+			} else {
+				defer.reject();
+			}
+		});
+		return defer.promise;
+	}
+
 	function connect(scope) {
 		gameSocket.forward([
 			'answer-chosen',
@@ -82,7 +94,8 @@ angular.module('lvlup.client')
 		login: login,
 		connect: connect,
 		setAnswer: setAnswer,
-		getHighscore: getHighscore
+		getHighscore: getHighscore,
+		getPlayer: getPlayer
 	};
 
 });
