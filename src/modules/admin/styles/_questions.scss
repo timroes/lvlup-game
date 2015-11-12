@@ -20,6 +20,10 @@
 	}
 }
 
+.question-upload--error {
+	border-color: $error-color;
+}
+
 .question {
 	cursor: pointer;
 	display: flex;
@@ -29,6 +33,10 @@
 	&:hover, &:focus {
 		background-color: $hover-bg;
 	}
+}
+
+.question--asked {
+	color: #AAA;
 }
 
 .question__title {

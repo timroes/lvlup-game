@@ -18,6 +18,19 @@ angular.module('lvlup.client')
 		}
 	}
 
+	function getCurrentQuestion() {
+		var defer = $q.defer();
+		gameSocket.emit('getCurrentQuestion', function(currentQuestion) {
+			console.log("currentQuestion", currentQuestion);
+			if (currentQuestion) {
+				defer.resolve(currentQuestion);
+			} else {
+				defer.reject();
+			}
+		});
+		return defer.promise;
+	}
+
 	function getHighscore() {
 		var defer = $q.defer();
 		gameSocket.emit('getHighscore', function(highscore) {
@@ -104,6 +117,7 @@ angular.module('lvlup.client')
 
 	return {
 		getSession: getSession,
+		getCurrentQuestion: getCurrentQuestion,
 		login: login,
 		connect: connect,
 		setAnswer: setAnswer,

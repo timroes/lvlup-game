@@ -10,6 +10,14 @@ angular.module('lvlup.client')
 		ctrl.player = player;
 	});
 
+	game.getCurrentQuestion().then(function(question) {
+		console.log(question);
+		ctrl.question = question.question;
+		ctrl.questionEndTime = Date.now() + question.remainingTime;
+		ctrl.chosenAnswer = question.chosenAnswer;
+		ctrl.answeringEnabled = !question.chosenAnswer;
+	});
+
 	ctrl.answer = function(answer) {
 		if (!ctrl.answeringEnabled) return;
 

@@ -1,5 +1,5 @@
 angular.module('lvlup.admin')
-.controller('AdminController', function($rootScope, game, questions, fileReader, players) {
+.controller('AdminController', function($window, $rootScope, game, questions, fileReader, players) {
 
 	var ctrl = this;
 
@@ -17,9 +17,15 @@ angular.module('lvlup.admin')
 
 	ctrl.endQuestion = questions.endQuestion;
 
-	ctrl.setQuestion = questions.setQuestion;
+	ctrl.setQuestion = function(id) {
+		questions.setQuestion(id)
+			.then(function() {
+				ctrl.questions[id].asked = true;
+			});
+	}
 
 	ctrl.addQuestions = function(file) {
+		ctrl.uploadError = null;
 		if (file) {
 			// TODO: any kind of error checking on the questions object
 			fileReader.readAsJson(file)
@@ -28,15 +34,15 @@ angular.module('lvlup.admin')
 				})
 				.then(function() {
 					reloadQuestions();
+				})
+				.catch(function(reason) {
+					$window.alert(reason);
+					ctrl.uploadError = reason;
 				});
 		}
 	};
 
 	ctrl.players = [];
-
-	players.get().then(function(players) {
-		ctrl.players = ctrl.players.concat(players);
-	});
 
 	$rootScope.$on('game:player:join', function(ev, info) {
 		ctrl.players.push(info);
@@ -44,10 +50,10 @@ angular.module('lvlup.admin')
 
 	$rootScope.$on('game:reset', function() {
 		ctrl.players = [];
+		ctrl.questions = null;
 	});
 
 	$rootScope.$on('game:players', function(ev, players) {
-		console.log("Hello??");
 		ctrl.players = players;
 	});
 

@@ -19,7 +19,7 @@ export default class Question {
 	}
 
 	constructor(json) {
-		if (!json.type || !json.exp) {
+		if (!json.type || (!json.exp && json.exp !== 0)) {
 			throw new Error(`Not all required attributes in parsing JSON.`);
 		}
 		this.type = json.type;

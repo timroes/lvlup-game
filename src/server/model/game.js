@@ -52,13 +52,6 @@ export default class Game {
 				if (player) {
 					socket.player = player;
 					player.socket = socket;
-					socket.emit('player', player.infos);
-					if (this.currentQuestion) {
-						socket.emit('question', this.currentQuestion.clientJson, this.currentQuestion.timeRemaining);
-					}
-					if (player.currentAnswer) {
-						socket.emit('answer-chosen', player.currentAnswer.answer);
-					}
 				}
 			});
 
@@ -75,6 +68,14 @@ export default class Game {
 
 			socket.on('getPlayer', (callback) => {
 				callback(socket.player && socket.player.infos);
+			});
+
+			socket.on('getCurrentQuestion', (callback) => {
+				callback(!socket.player || !this.currentQuestion ? null : {
+					question: this.currentQuestion.clientJson,
+					remainingTime: this.currentQuestion.timeRemaining,
+					chosenAnswer: socket.player.currentAnswer && socket.player.currentAnswer.answer
+				});
 			});
 
 			socket.on('answer', (data, callback) => {
@@ -141,6 +142,9 @@ export default class Game {
 			throw err;
 		}
 
+		// Mark question as asked
+		this.questions[id].asked = true;
+
 		let question = Question.parse(this.questions[id]);
 
 		let remainingTime = question.start();
@@ -153,8 +157,6 @@ export default class Game {
 
 	endQuestion() {
 		if (!this.currentQuestion) return;
-
-		// TODO: Send out end question event
 
 		if (this.currentQuestionTimeoutId) {
 			clearTimeout(this.currentQuestionTimeoutId);
@@ -198,7 +200,6 @@ export default class Game {
 	 */
 	endGame() {
 		// TODO: This should somehow really END this game, no other methods allowed
-
 		if (this.currentQuestionTimeoutId) {
 			clearTimeout(this.currentQuestionTimeoutId);
 		}
@@ -239,6 +240,7 @@ export default class Game {
 		this.usernames = [];
 		this.currentQuestion = null;
 		this.highscore = null;
+		this.questions = {};
 		this.screen.reset();
 		this.admin.reset();
 
