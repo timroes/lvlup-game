@@ -1,16 +1,28 @@
-.qrcode {
+.qrcode-wrapper {
 	max-width: 100%;
 	max-height: 100vh;
 	height: 100vh;
-	display: block;
 	margin: 0 auto;
 	position: absolute;
 	left: 2rem;
 	right: 2rem;
 	bottom: 0;
+	display: flex;
+	flex-direction: column;
 }
 
-.qrcode.minimized {
+.qrcode {
+	flex: 1 1 0;
+	height: 1000px;
+	width: 1000px;
+	max-width: 100vh;
+	display: block;
+	// height: 100vh;
+	// max-height: 100vh;
+	margin: 0 auto;
+}
+
+.qrcode-wrapper.minimized {
 	bottom: 2rem;
 	right: 2rem;
 	max-width: 15vw;
@@ -18,4 +30,19 @@
 	top: auto;
 	left: auto;
 	box-shadow: 0 0 10px #555;
+
+	.qrcode-url {
+		display: none;
+	}
+
+	.qrcode {
+		max-width: 15vw;
+		height: 15vw;
+	}
+}
+
+.qrcode-url {
+	font-size: 3rem;
+	text-align: center;
+	line-height: 3;
 }

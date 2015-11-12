@@ -1,4 +1,5 @@
 [
+	{ "id": "jquery", "scripts": ["dist/jquery.min.js"] },
 	{ "id": "angular", "scripts": ["angular.min.js"] },
 	{ "id": "angular-route", "scripts": ["angular-route.min.js"] },
 	{ "id": "angular-touch", "scripts": ["angular-touch.min.js"] },
