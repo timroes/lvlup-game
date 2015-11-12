@@ -20,6 +20,10 @@
 	}
 }
 
+.question-upload--error {
+	border-color: $error-color;
+}
+
 .question {
 	cursor: pointer;
 	display: flex;

@@ -29,7 +29,8 @@
 				ngf-change="admin.addQuestions($file)"
 				ng-model="uploadedQuestions"
 				accept="application/json" ngf-pattern="'application/json'"
-				ngf-drag-over-class="'drag'">
+				ngf-drag-over-class="'drag'"
+				ng-class="{ 'question-upload--error': admin.uploadError }">
 			Click to upload or drag'n'drop questions here
 		</div>
 		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)">

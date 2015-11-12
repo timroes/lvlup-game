@@ -1,5 +1,5 @@
 angular.module('lvlup.admin')
-.controller('AdminController', function($rootScope, game, questions, fileReader, players) {
+.controller('AdminController', function($window, $rootScope, game, questions, fileReader, players) {
 
 	var ctrl = this;
 
@@ -20,6 +20,7 @@ angular.module('lvlup.admin')
 	ctrl.setQuestion = questions.setQuestion;
 
 	ctrl.addQuestions = function(file) {
+		ctrl.uploadError = null;
 		if (file) {
 			// TODO: any kind of error checking on the questions object
 			fileReader.readAsJson(file)
@@ -28,6 +29,10 @@ angular.module('lvlup.admin')
 				})
 				.then(function() {
 					reloadQuestions();
+				})
+				.catch(function(reason) {
+					$window.alert(reason);
+					ctrl.uploadError = reason;
 				});
 		}
 	};

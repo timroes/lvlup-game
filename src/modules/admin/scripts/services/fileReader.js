@@ -17,7 +17,11 @@ angular.module('lvlup.admin')
 	function readAsJson(fileObj) {
 		return readAsText(fileObj)
 			.then(function(text) {
-				return JSON.parse(text);
+				try {
+					return JSON.parse(text);
+				} catch(e) {
+					return $q.reject(e.message);
+				}
 			});
 	}
 
