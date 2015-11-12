@@ -9,7 +9,7 @@ angular.module('lvlup.admin')
 	}
 
 	function setQuestion(id) {
-		$http.post('/admin/api/question', { question: id });
+		return $http.post('/admin/api/question', { question: id });
 	}
 
 	function endQuestion() {

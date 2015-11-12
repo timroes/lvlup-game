@@ -33,7 +33,8 @@
 				ng-class="{ 'question-upload--error': admin.uploadError }">
 			Click to upload or drag'n'drop questions here
 		</div>
-		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)">
+		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)"
+			ng-class="{ 'question--asked': q.asked }">
 			<!-- TODO: Icon for type, Exp -->
 			<h3 class="question__title">{{::q.question}}</h3>
 			<span class="question__exp">{{::q.exp}} exp</span>

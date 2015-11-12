@@ -141,6 +141,9 @@ export default class Game {
 			throw err;
 		}
 
+		// Mark question as asked
+		this.questions[id].asked = true;
+
 		let question = Question.parse(this.questions[id]);
 
 		let remainingTime = question.start();
@@ -239,6 +242,7 @@ export default class Game {
 		this.usernames = [];
 		this.currentQuestion = null;
 		this.highscore = null;
+		this.questions = {};
 		this.screen.reset();
 		this.admin.reset();
 
