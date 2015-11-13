@@ -19,9 +19,11 @@ export default class Question {
 	}
 
 	constructor(json) {
-		if (!json.type || (!json.exp && json.exp !== 0)) {
+		if (!json.type || (!json.exp && json.exp !== 0) || !json.id) {
 			throw new Error(`Not all required attributes in parsing JSON.`);
 		}
+
+		this.id = json.id;
 		this.type = json.type;
 		
 		this.time = (json.time ? json.time * timePerQuestionFactor : timePerQuestionDefault) * 1000;
@@ -38,6 +40,7 @@ export default class Question {
 	 */
 	get clientJson() {
 		return {
+			id: this.id,
 			type: this.type,
 			exp: this.exp,
 			time: this.time

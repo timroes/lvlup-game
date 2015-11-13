@@ -83,6 +83,7 @@ export default class Game {
 					this.currentQuestion // there must be a question
 					&& this.currentQuestion.endTime + (timeOverrun * 1000) >= Date.now() // it must still run
 					&& !socket.player.currentAnswer // the user must not have answered it before
+					&& this.currentQuestion.id === data.questionId
 				) {
 					socket.player.currentAnswer = data;
 					callback(true);
@@ -122,7 +123,9 @@ export default class Game {
 	addQuestions(questions) {
 		if (Array.isArray(questions)) {
 			questions.forEach(qes => {
-				this.questions[utils.generateUUID()] = qes;
+				const id = utils.generateUUID();
+				qes.id = id;
+				this.questions[id] = qes;
 			});
 		} else {
 			throw new Error('Questions must be in form of an array.');

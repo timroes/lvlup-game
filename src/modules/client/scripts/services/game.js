@@ -90,9 +90,9 @@ angular.module('lvlup.client')
 		], scope);
 	}
 
-	function setAnswer(answer) {
+	function setAnswer(questionId, answer) {
 		var defer = $q.defer();
-		gameSocket.emit('answer', { answer: answer }, function(result) {
+		gameSocket.emit('answer', { questionId: questionId, answer: answer }, function(result) {
 			if (result) {
 				defer.resolve();
 			} else {

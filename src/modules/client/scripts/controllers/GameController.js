@@ -22,12 +22,13 @@ angular.module('lvlup.client')
 		if (!ctrl.answeringEnabled) return;
 
 		ctrl.answeringEnabled = false;
+		ctrl.chosenAnswer = answer;
 		// TODO: show transmitting indicator
-		game.setAnswer(answer).then(function() {
+		game.setAnswer(ctrl.question.id, answer).then(function() {
 			// TODO: hide transmitting indicator
-			ctrl.chosenAnswer = answer;
 		})
 		.catch(function() {
+			console.error("Could not send answer to server.");
 			// TODO: Could not set answer (should be output anything)
 		});
 	};
