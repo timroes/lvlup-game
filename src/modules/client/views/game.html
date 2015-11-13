@@ -14,7 +14,7 @@
 	<div ng-if="game.question.type === 'text'">
 		<div class="question-body">{{ game.question.question }}</div>
 		<form ng-submit="game.answer(game.chosenAnswer)">
-			<input type="text" placeholder="Enter Your Answer" class="question-input" ng-class="{ 'question-input--correct': game.solution.solved, 'question-input--wrong': game.solution.solved === false }" ng-model="game.chosenAnswer" ng-disabled="!game.answeringEnabled">
+			<input type="text" placeholder="Enter Your Answer" autocomplete="off" autocorrect="off" spellcheck="false" class="question-input" ng-class="{ 'question-input--correct': game.solution.solved, 'question-input--wrong': game.solution.solved === false }" ng-model="game.chosenAnswer" ng-disabled="!game.answeringEnabled">
 			<button class="question-submit" type="submit" ng-disabled="!game.answeringEnabled || !game.chosenAnswer">
 				<i class="icon-ok" ng-if="game.answeringEnabled"></i>
 				<i class="icon-lock" ng-if="!game.answeringEnabled"></i>
