@@ -29,11 +29,12 @@
 }
 
 .highscore-entry__lvl {
-	flex: 0 0 50px;
+	flex: 0 0 25%;
 }
 
 .highscore-entry__exp {
-	flex: 0 0 100px;
+	margin-left: 1em;
+	flex: 0 0 15%;
 	text-align: right;
 	color: #999;
 }
