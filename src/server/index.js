@@ -19,14 +19,12 @@ const express = require('express'),
 
 const Game = require('./model/game');
 
-var api = require('./api');
-
 const modules = `${__dirname}/modules`;
 
 const game = new Game();
 
 // TODO: move api to api package
-server.app.use('/api', api(game));
+server.app.use('/api', require('./api/client')(game));
 
 if (inProduction) {
 	// Only request basic auth in production
