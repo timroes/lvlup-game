@@ -13,9 +13,9 @@ export default class SafeSocket {
 		this._socket = s;
 	}
 
-	emit() {
+	emit(...args) {
 		if (this._socket) {
-			this._socket.emit.apply(this._socket, arguments);
+			this._socket.emit(...args);
 		}
 	}
 
