@@ -39,12 +39,18 @@
 	color: #AAA;
 }
 
+.question__type {
+	flex: 0 0 42px;
+	color: $gray-text;
+}
+
 .question__title {
 	font-weight: 300;
+	flex: 1 1 0;
 }
 
 .question__exp {
 	flex: 0 0 auto;
 	margin-left: 0.8em;
-	color: #999;
+	color: $gray-text;
 }

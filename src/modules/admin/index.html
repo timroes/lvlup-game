@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>LVLUP-GAME</title>
+	<link rel="stylesheet" href="assets/fontello/css/fontello.css">
 	<link rel="stylesheet" href="/shared/shared.min.css">
 	<link rel="stylesheet" href="admin.min.css">
 </head>
@@ -35,13 +36,9 @@
 		</div>
 		<div class="question" ng-repeat="(id,q) in admin.questions" ng-click="admin.setQuestion(id)"
 			ng-class="{ 'question--asked': q.asked }">
-			<!-- TODO: Icon for type, Exp -->
+			<i ng-class="'icon-' + q.type" class="question__type"></i>
 			<h3 class="question__title">{{::q.question}}</h3>
 			<span class="question__exp">{{::q.exp}} exp</span>
-			<!-- <ul>
-				<li>{{::q.answer}}</li>
-				<li ng-repeat="answer in ::q.wrongAnswers">{{ answer }}</li>
-			</ul> -->
 		</div>
 	</div>
 

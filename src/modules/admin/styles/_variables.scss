@@ -1,10 +1,9 @@
-$hover-bg: #FBFFCD;
-
 $success-color: #4CAF50;
 $error-color: #F44336;
 
-
 $accent-color: #673AB7;
 $text-on-accent: white;
+
+$hover-bg: lighten($accent-color, 45%);
 
 $gray-text: #999;
