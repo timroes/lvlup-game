@@ -23,7 +23,6 @@ const modules = `${__dirname}/modules`;
 
 const game = new Game();
 
-// TODO: move api to api package
 server.app.use('/api', require('./api/client')(game));
 
 if (inProduction) {
