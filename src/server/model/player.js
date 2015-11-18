@@ -11,6 +11,11 @@ export default class Player extends SafeSocket {
 		this.exp = 0;
 		this.lostExp = 0;
 		this.level = 1;
+		this.stats = {
+			correct: 0,
+			wrong: 0,
+			noanswer: 0
+		};
 	}
 
 	get infos() {
@@ -26,7 +31,8 @@ export default class Player extends SafeSocket {
 			username: this.username,
 			level: this.level,
 			exp: this.exp,
-			totalExp: this.totalExp
+			totalExp: this.totalExp,
+			stats: this.stats
 		};
 	}
 

@@ -5,6 +5,31 @@
 	width: 40%;
 }
 
+.player {
+	display: flex;
+	align-items: flex-end;
+}
+
+.player__stats {
+	flex: 0 0 auto;
+}
+
+.player-stats__correct {
+	color: $success-color;
+}
+
+.player-stats__wrong {
+	color: $error-color;
+}
+
+.player-stats__noanswer {
+	color: $gray-text;
+}
+
+.player__info {
+	flex: 1;
+}
+
 .players__count {
 	color: $gray-text;
 }
@@ -24,7 +49,7 @@
 	text-overflow: ellipsis;
 }
 
-.player__info {
+.player__exp {
 	color: $gray-text;
 }
 

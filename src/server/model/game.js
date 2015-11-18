@@ -179,8 +179,10 @@ export default class Game {
 				player.lvlup(exp);
 				player.emit('player:update', player.lvlInfos);
 				statistics[exp > 0 ? 'correct': 'wrong']++;
+				player.stats[exp > 0 ? 'correct' : 'wrong']++;
 			} else {
 				statistics.noanswer++;
+				player.stats.noanswer++;
 			}
 
 			player.emit('solution', {
