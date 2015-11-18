@@ -88,10 +88,11 @@ class ChoiceQuestion extends Question {
 	}
 
 	get clientJson() {
-		let json = super.clientJson;
-		json.question = this.question;
-		json.answers = this.answers;
-		return json;
+		return {
+			...super.clientJson,
+			question: this.question,
+			answers: this.answers
+		};
 	}
 
 	validateAnswer(answer) {
@@ -116,9 +117,10 @@ class TextQuestion extends Question {
 	}
 
 	get clientJson() {
-		let json = super.clientJson;
-		json.question = this.question;
-		return json;
+		return {
+			...super.clientJson,
+			question: this.question
+		};
 	}
 
 	validateAnswer(answer) {
