@@ -1,5 +1,7 @@
 <question-countdown enabled="game.questionEndTime && !game.solution" until="game.questionEndTime" total="game.question.time" on-end="game.timeUp()"></question-countdown>
 
+<keep-screen-on></keep-screen-on>
+
 <div class="question" ng-show="game.question">
 	<div ng-if="game.question.type === 'choice'">
 		<div class="question-body">{{ game.question.question }}</div>

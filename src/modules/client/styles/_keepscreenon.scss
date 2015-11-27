@@ -1,0 +1,27 @@
+.keepscreenon {
+	transition: margin-top 1s ease-in, opacity 1s ease-in;
+	margin-top: 0;
+	opacity: 1;
+}
+
+.keepscreenon--enabled {
+	margin-top: -4rem;
+	opacity: 0;
+}
+
+.keepscreenon__video {
+	display: none;
+	width: 200px;
+	height: 200px;
+	position: absolute;
+}
+
+.keepscreenon__button {
+	display: block;
+	line-height: 2.5;
+	margin: 0.8em auto;
+	background: none;
+	border: none;
+	color: #999;
+	outline: none;
+}
