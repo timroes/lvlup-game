@@ -1,12 +1,11 @@
 .keepscreenon {
-	position: relative;
-	transition: all 1s ease-in;
+	transition: margin-top 1s ease-in, opacity 1s ease-in;
+	margin-top: 0;
 	opacity: 1;
-	top: 0;
 }
 
 .keepscreenon--enabled {
-	top: -2rem;
+	margin-top: -4rem;
 	opacity: 0;
 }
 
@@ -14,24 +13,15 @@
 	display: none;
 	width: 200px;
 	height: 200px;
-	position: static;
-}
-
-.keepscreenon__button--hidden {
-	visibility: hidden;
+	position: absolute;
 }
 
 .keepscreenon__button {
 	display: block;
 	line-height: 2.5;
-	margin: 0 auto;
+	margin: 0.8em auto;
 	background: none;
 	border: none;
 	color: #999;
-	width: 100%;
-}
-
-.keepscreenon__button--enabled {
-	top: -2rem;
-	opacity: 0;
+	outline: none;
 }

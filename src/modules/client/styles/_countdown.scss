@@ -4,6 +4,7 @@ question-countdown {
 	position: fixed;
 	display: block;
 	background-color: $countdown-bar-color;
+	top: 0;
 	height: 0.3em;
 	width: 100%;
 	box-shadow: 0 0 2px $countdown-bar-color;
