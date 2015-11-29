@@ -122,9 +122,10 @@ angular.module('lvlup.client')
 			if (roundtripTime > 400) {
 				// Drop every ping, that needed longer than 400ms for the server roundtrip
 				// It's data might be to unreliable to get the server time.
-				// Measure again in 1 to 4 seconds
+				// Measure again in 1 to 3 seconds if we have no offset yet, if we already have one
+				// wait the "regular" 30s for next measurement.
 				console.log("Dropping server ping due to delay >400ms.");
-				schedulePing(1000 + Math.random() * 3000);
+				schedulePing(measuredOffset.offset === null ? 1000 + Math.random() * 2000 : 30000);
 			} else {
 				// The ping and response were fast enough to process the result.
 				if (measuredOffset.roundtrip === null || measuredOffset.roundtrip >= roundtripTime) {
