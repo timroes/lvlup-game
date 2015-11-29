@@ -1,7 +1,12 @@
 angular.module('lvlup.client')
-.factory('game', function($q, $http, $rootScope, $location, localStorageService, gameSocket) {
+.factory('game', function($q, $http, $timeout, $location, localStorageService, gameSocket) {
 
 	var SESSION_KEY = 'session';
+	var pingTimeout;
+	var measuredOffset = {
+		offset: null,
+		roundtrip: null
+	};
 
 	function socketAuth() {
 		if (getSession()) {
@@ -77,6 +82,49 @@ angular.module('lvlup.client')
 		return defer.promise;
 	}
 
+	function schedulePing(timeout) {
+		$timeout.cancel(pingTimeout);
+		pingTimeout = $timeout(measureClockDiff, timeout);
+	}
+
+	/**
+	 * Measure how much our client system clock is before or behind the server clock.
+	 */
+	function measureClockDiff() {
+		var start = Date.now();
+		gameSocket.emit('ping', function(result) {
+			// End time = time we receive the ping response
+			var end = Date.now();
+			// The roundtrip time is the time the ping and response needed
+			var roundtripTime = end - start;
+
+			if (roundtripTime > 400) {
+				// Drop every ping, that needed longer than 400ms for the server roundtrip
+				// It's data might be to unreliable to get the server time.
+				// Measure again in 1 to 4 seconds
+				console.log("Dropping server ping due to delay >400ms.");
+				schedulePing(1000 + Math.random() * 3000);
+			} else {
+				// The ping and response were fast enough to process the result.
+				if (measuredOffset.roundtrip === null || measuredOffset.roundtrip >= roundtripTime) {
+					// If we have no measurement yet or this ping was at least as fast as the previous one, use this result
+					var clientOffset = (end - roundtripTime / 2) - result.time;
+					console.log("Receiving ping response after %dms with client offset of %dms", roundtripTime, clientOffset);
+					measuredOffset.roundtrip = roundtripTime;
+					measuredOffset.offset = clientOffset;
+				} else {
+					console.log("Dropping ping with %dms roundtrip. Already have a lower roundtrip time result.", roundtripTime);
+				}
+				// Measure again in 30s
+				schedulePing(30000);
+			}
+		});
+	}
+
+	function getClientDelay() {
+		return measuredOffset.offset;
+	}
+
 	function connect(scope) {
 		gameSocket.forward([
 			'answer-chosen',
@@ -88,6 +136,7 @@ angular.module('lvlup.client')
 			'question',
 			'solution'
 		], scope);
+		measureClockDiff();
 	}
 
 	function setAnswer(questionId, answer) {
@@ -123,7 +172,8 @@ angular.module('lvlup.client')
 		setAnswer: setAnswer,
 		getHighscore: getHighscore,
 		getPlayer: getPlayer,
-		hasEnded: hasEnded
+		hasEnded: hasEnded,
+		getClientDelay: getClientDelay
 	};
 
 });

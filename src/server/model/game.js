@@ -45,6 +45,12 @@ export default class Game {
 			// TODO: move to player class
 			// TODO: Use two channels one for authenticated users one for pre authentication
 
+			socket.on('ping', (callback) => {
+				callback({
+					time: Date.now()
+				});
+			});
+
 			socket.on('authenticate', (data, callback) => {
 				// TODO: don't store the player object just a key, to retrieve the player
 				let player = this.players[data.session];
