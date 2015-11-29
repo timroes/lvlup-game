@@ -77,6 +77,10 @@ class ChoiceQuestion extends Question {
 	constructor(json) {
 		super(json);
 
+		if (!json.question || !json.answer || !Array.isArray(json.wrongAnswers)) {
+			throw new Error(`Invalid JSON for ChoiceQuestions.`);
+		}
+
 		this.question = json.question;
 
 		this.answers = [json.answer, ...json.wrongAnswers].map((a) => {
@@ -111,6 +115,10 @@ class TextQuestion extends Question {
 
 	constructor(json) {
 		super(json);
+
+		if (!json.question || !json.answers) {
+			throw new Error(`Invalid JSON for TextQuestion.`);
+		}
 
 		this.question = json.question;
 		this.answers = Array.isArray(json.answers) ? json.answers : [json.answers];
