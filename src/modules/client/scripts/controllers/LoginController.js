@@ -7,7 +7,6 @@ angular.module('lvlup.client')
 		ctrl.error = null;
 		game.login(ctrl.name)
 			.then(function() {
-				$rootScope.$broadcast('keepScreenOn');
 				$location.path('/game');
 			})
 			.catch(function(reason) {
