@@ -77,11 +77,14 @@ export default class Game {
 			});
 
 			socket.on('getCurrentQuestion', (callback) => {
-				callback(!socket.player || !this.currentQuestion ? null : {
-					question: this.currentQuestion.clientJson,
-					remainingTime: this.currentQuestion.timeRemaining,
-					chosenAnswer: socket.player.currentAnswer && socket.player.currentAnswer.answer
-				});
+				if (!socket.player || !this.currentQuestion) {
+					callback(null, null);
+				} else {
+					callback({
+						question: this.currentQuestion.clientJson,
+						chosenAnswer: socket.player.currentAnswer && socket.player.currentAnswer.answer
+					});
+				}
 			});
 
 			socket.on('answer', (data, callback) => {
@@ -157,9 +160,9 @@ export default class Game {
 		let question = Question.parse(this.questions[id]);
 
 		let remainingTime = question.start();
-		this.io.sockets.emit('question', question.clientJson, remainingTime);
+		this.io.sockets.emit('question', question.clientJson);
 		// End the current question 2 seconds after it should actually end (to compensate bad network, etc.)
-		this.currentQuestionTimeoutId = setTimeout(this.endQuestion.bind(this), remainingTime + timeOverrun * 1000);
+		this.currentQuestionTimeoutId = setTimeout(this.endQuestion.bind(this), question.timeRemaining + timeOverrun * 1000);
 
 		this.currentQuestion = question;
 	}

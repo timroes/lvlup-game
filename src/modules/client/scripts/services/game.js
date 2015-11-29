@@ -23,10 +23,31 @@ angular.module('lvlup.client')
 		}
 	}
 
+	/**
+	 * Calculates the client timestamp, when a question ends.
+	 * @param {Number} timeRemaining - the milliseconds that the server said this question will still last
+	 * @param {Number} serverEndTime - the server timestamp this question ends
+	 * @returns {Number} A client timestamp when the questions should end.
+	 */
+	function getQuestionEndTime(timeRemaining, serverEndTime) {
+		var now = Date.now();
+		var byRemainingTime = now + timeRemaining;
+		if (measuredOffset.offset === null) {
+			// If we have no system clock offset measurement yet, we need to rely on the remainingTime
+			// which might be a bit inaccurate due to delay in the websocket messages.
+			return byRemainingTime;
+		} else {
+			// If we now the offset between client clock and server clock, we can calculate the client
+			// timestamp from the server timestamp and use it. This should be more accurate because
+			// it takes the transport delay into account.
+			// We only ignore this value, if it's larger than the end time calculated via the remaining time.
+			return Math.min(byRemainingTime, serverEndTime + measuredOffset.offset);
+		}
+	}
+
 	function getCurrentQuestion() {
 		var defer = $q.defer();
 		gameSocket.emit('getCurrentQuestion', function(currentQuestion) {
-			console.log("currentQuestion", currentQuestion);
 			if (currentQuestion) {
 				defer.resolve(currentQuestion);
 			} else {
@@ -121,10 +142,6 @@ angular.module('lvlup.client')
 		});
 	}
 
-	function getClientDelay() {
-		return measuredOffset.offset;
-	}
-
 	function connect(scope) {
 		gameSocket.forward([
 			'answer-chosen',
@@ -173,7 +190,7 @@ angular.module('lvlup.client')
 		getHighscore: getHighscore,
 		getPlayer: getPlayer,
 		hasEnded: hasEnded,
-		getClientDelay: getClientDelay
+		getQuestionEndTime: getQuestionEndTime
 	};
 
 });

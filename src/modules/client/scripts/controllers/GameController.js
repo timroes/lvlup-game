@@ -11,9 +11,8 @@ angular.module('lvlup.client')
 	});
 
 	game.getCurrentQuestion().then(function(question) {
-		console.log(question);
 		ctrl.question = question.question;
-		ctrl.questionEndTime = Date.now() + question.remainingTime;
+		ctrl.questionEndTime = game.getQuestionEndTime(question.question.timeRemaining, question.question.endsAt);
 		ctrl.chosenAnswer = question.chosenAnswer;
 		ctrl.answeringEnabled = !question.chosenAnswer;
 	});
@@ -52,11 +51,11 @@ angular.module('lvlup.client')
 		}
 	});
 
-	$scope.$on('game:question', function(ev, question, timeRemaining) {
+	$scope.$on('game:question', function(ev, question) {
 		ctrl.chosenAnswer = null;
 		ctrl.answeringEnabled = true;
 		ctrl.question = question;
-		ctrl.questionEndTime = Date.now() + timeRemaining;
+		ctrl.questionEndTime = game.getQuestionEndTime(question.timeRemaining, question.endsAt);
 		ctrl.solution = null;
 	});
 

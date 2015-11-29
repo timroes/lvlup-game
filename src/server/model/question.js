@@ -43,7 +43,9 @@ export default class Question {
 			id: this.id,
 			type: this.type,
 			exp: this.exp,
-			time: this.time
+			time: this.time,
+			timeRemaining: this.timeRemaining,
+			endsAt: this.endTime
 		};
 	}
 
