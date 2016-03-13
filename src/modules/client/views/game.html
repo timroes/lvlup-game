@@ -3,6 +3,7 @@
 <keep-screen-on></keep-screen-on>
 
 <div class="question" ng-show="game.question">
+	<question-rating rating="game.question.rating"></question-rating>
 	<div ng-if="game.question.type === 'choice'">
 		<div class="question-body">{{ game.question.question }}</div>
 		<div class="question-answers">
