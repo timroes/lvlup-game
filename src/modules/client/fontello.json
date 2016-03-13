@@ -7,6 +7,30 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c1f1975c885aa9f3dad7810c53b82074",
+      "css": "lock",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "aa035df0908c4665c269b7b09a5596f3",
+      "css": "sun",
+      "code": 59394,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ab656e280958018a7859eba9a1eabbc7",
+      "css": "award",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
       "uid": "66ceae90a0917dbdc0f9562b7d390ae7",
       "css": "inovex",
       "code": 59405,
@@ -47,24 +71,6 @@
       "search": [
         "gplus"
       ]
-    },
-    {
-      "uid": "12f4ece88e46abd864e40b35e05b11cd",
-      "css": "ok",
-      "code": 59392,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "c1f1975c885aa9f3dad7810c53b82074",
-      "css": "lock",
-      "code": 59393,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "aa035df0908c4665c269b7b09a5596f3",
-      "css": "sun",
-      "code": 59394,
-      "src": "fontawesome"
     }
   ]
 }

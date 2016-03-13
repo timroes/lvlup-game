@@ -9,11 +9,13 @@ const modules = ['admin', 'client', 'screen', 'shared'];
 
 const dirs = {
 	src: 'src',
-	build: 'build'
+	build: 'build',
+	fontello: 'assets/fontello'
 };
 
 const src = {
 	assets: 'assets/**',
+	fontello: 'fontello.json',
 	html: '*.html',
 	scripts: 'scripts/**/*.js',
 	styles: 'styles/**/*.scss',
@@ -31,7 +33,13 @@ modules.forEach((module) => {
 
 	let moddir = `src/modules/${module}/`;
 
-	gulp.task(`${module}:assets`, () => {
+	gulp.task(`${module}:fontello`, () => {
+		return gulp.src(moddir + src.fontello, { base: moddir })
+			.pipe(_.fontello())
+			.pipe(gulp.dest(moddir + dirs.fontello));
+	});
+
+	gulp.task(`${module}:assets`, [`${module}:fontello`], () => {
 		return gulp.src(moddir + src.assets, { base: moddir })
 			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
@@ -114,7 +122,7 @@ modules.forEach((module) => {
 		gulp.watch(moddir + src.assets, [`${module}:assets`]);
 	});
 
-	gulp.task(`${module}:build`, ['assets', 'scripts', 'styles', 'html', 'libs', 'libs:styles', 'templates']
+	gulp.task(`${module}:build`, ['assets', 'fontello', 'scripts', 'styles', 'html', 'libs', 'libs:styles', 'templates']
 		.map(job => `${module}:${job}`));
 
 });
