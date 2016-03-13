@@ -1,0 +1,15 @@
+.answer-statistic {
+	display: inline-block;
+}
+
+.answer-statistic__correct {
+	color: $success-color;
+}
+
+.answer-statistic__wrong {
+	color: $error-color;
+}
+
+.answer-statistic__noanswer {
+	color: $gray-text;
+}

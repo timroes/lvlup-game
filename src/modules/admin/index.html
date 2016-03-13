@@ -13,18 +13,34 @@
 	<header>
 		<h1 class="header__title">Admin Interface</h1>
 		<div class="header__actions">
-			<button ng-click="admin.endGame()">End Game</button>
-			<button ng-click="admin.resetGame()">Reset Game</button>
+			<button ng-click="admin.endGame()"><i class="icon-trophy"></i> End Game</button>
+			<button ng-click="admin.resetGame()"><i class="icon-reset"></i> Reset Game</button>
 		</div>
 	</header>
 
 	<main>
+		<div class="current-question box">
+			<div class="box-header">
+				<h2>Current question</h2>
+				<div class="box-header__actions">
+					<question-countdown question="admin.question"></question-countdown>
+					<button ng-click="admin.endQuestion()"><i class="icon-to-end"></i> End question</button>
+				</div>
+			</div>
+			<div class="current-question" ng-show="admin.question">
+				<question-body class="current-question__body" question="admin.question"></question-body>
+			</div>
+			<div class="current-question__no-question" ng-show="!admin.question">
+				No question!
+			</div>
+			<div class="box-footer" ng-show="admin.answer">
+				<answer-statistic class="current-question__statistic" stats="admin.answer"></answer-statistic>
+			</div>
+		</div>
+
 		<div class="questions box">
 			<div class="box-header">
 				<h2>Questions</h2>
-				<div class="box-header__actions">
-					<button ng-click="admin.endQuestion()">End current question</button>
-				</div>
 			</div>
 			<div class="question-upload"
 					ngf-drop ngf-select
@@ -56,11 +72,7 @@
 						<h2 class="player__username">{{::player.username}}</h2>
 						<div class="player__exp">Lvl. {{::player.level}} + {{::player.exp}} exp ({{::player.totalExp}} exp)</div>
 					</div>
-					<div class="player__stats">
-						<span class="player-stats__correct"><i class="icon-correct"></i> {{::player.stats.correct}}</span>
-						<span class="player-stats__noanswer"><i class="icon-noanswer"></i> {{::player.stats.noanswer}}</span>
-						<span class="player-stats__wrong"><i class="icon-wrong"></i> {{::player.stats.wrong}}</span>
-					</div>
+					<answer-statistic class="player__stats" stats="player.stats"></answer-statistic>
 				</li>
 			</ul>
 			<div class="noplayers" ng-if="!admin.players.length">

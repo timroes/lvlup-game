@@ -51,6 +51,15 @@ export default class Question {
 		};
 	}
 
+	/**
+	 * Returns the JSON object, that will be transmitted to the admin ui.
+	 */
+	get adminJson() {
+		return {
+			...this.clientJson
+		};
+	}
+
 	get timeRemaining() {
 		return Math.max(0, this.endTime - Date.now());
 	}

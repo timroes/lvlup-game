@@ -44,17 +44,28 @@ angular.module('lvlup.admin')
 
 	ctrl.players = [];
 
-	$rootScope.$on('game:player:join', function(ev, info) {
-		ctrl.players.push(info);
+	$rootScope.$on('game:player:join', (ev, info) => {
+		this.players.push(info);
 	});
 
-	$rootScope.$on('game:reset', function() {
-		ctrl.players = [];
-		ctrl.questions = null;
+	$rootScope.$on('game:reset', () => {
+		this.players = [];
+		this.questions = null;
+		this.answer = null;
+		this.question = null;
 	});
 
-	$rootScope.$on('game:players', function(ev, players) {
-		ctrl.players = players;
+	$rootScope.$on('game:players', (ev, players) => {
+		this.players = players;
+	});
+
+	$rootScope.$on('game:question', (ev, question) => {
+		this.question = question;
+		this.answer = null;
+	});
+
+	$rootScope.$on('game:answer', (ev, answer) => {
+		this.answer = answer;
 	});
 
 });

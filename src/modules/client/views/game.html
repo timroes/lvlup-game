@@ -5,7 +5,7 @@
 <div class="question" ng-show="game.question">
 	<question-rating rating="game.question.rating"></question-rating>
 	<div ng-if="game.question.type === 'choice'">
-		<div class="question-body">{{ game.question.question }}</div>
+		<question-body question="game.question"></question-body>
 		<div class="question-answers">
 			<button type="button" class="question-answer" ng-disabled="!game.answeringEnabled"
 					ng-class="{ 'question-answer--chosen': game.chosenAnswer === answer.id, 'question-answer--correct': game.solution.correctAnswer === answer.id, 'question-answer--wrong': game.chosenAnswer === answer.id && game.solution.solved === false }"
@@ -15,7 +15,7 @@
 		</div>
 	</div>
 	<div ng-if="game.question.type === 'text'">
-		<div class="question-body">{{ game.question.question }}</div>
+		<question-body question="game.question"></question-body>
 		<form ng-submit="game.answer(game.chosenAnswer)">
 			<input type="text" placeholder="Enter Your Answer" autocomplete="off" autocorrect="off" spellcheck="false" class="question-input" ng-class="{ 'question-input--correct': game.solution.solved, 'question-input--wrong': game.solution.solved === false }" ng-model="game.chosenAnswer" ng-disabled="!game.answeringEnabled">
 			<button class="question-submit" type="submit" ng-disabled="!game.answeringEnabled || !game.chosenAnswer">

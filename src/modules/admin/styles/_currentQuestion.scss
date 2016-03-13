@@ -1,0 +1,22 @@
+.current-question {
+	flex: 1 1 100%;
+}
+
+.current-question__no-question {
+	color: $gray-text;
+	text-align: center;
+	margin: 1em;
+}
+
+.current-question__body {
+	margin: 1em;
+}
+
+.current-question__statistic-label {
+	color: $gray-text;
+}
+
+.current-question__statistic .answer-statistic {
+	display: flex;
+	justify-content: space-around;
+}

@@ -14,7 +14,7 @@ const dirs = {
 };
 
 const src = {
-	assets: 'assets/**',
+	assets: ['assets/**', 'assets/fontello'],
 	fontello: 'fontello.json',
 	html: '*.html',
 	scripts: 'scripts/**/*.js',
@@ -121,7 +121,7 @@ modules.forEach((module) => {
 		gulp.watch(moddir + src.styles, [`${module}:styles`]);
 		gulp.watch(moddir + src.templates, [`${module}:templates`]);
 		gulp.watch(moddir + src.assets, [`${module}:assets`]);
-		gulp.watch(moddir + src.fontello, [`${module}:fontello`]); // on fontello config change retrigger assets, which will retrigger fontello task
+		gulp.watch(moddir + src.fontello, [`${module}:fontello`]);
 	});
 
 	gulp.task(`${module}:build`, ['assets', 'fontello', 'scripts', 'styles', 'html', 'libs', 'libs:styles', 'templates']

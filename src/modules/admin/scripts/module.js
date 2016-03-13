@@ -1,4 +1,5 @@
 angular.module('lvlup.admin', [
+	'lvlup.shared',
 	'ngTouch',
 	'btford.socket-io',
 	'ngFileUpload'
@@ -7,6 +8,8 @@ angular.module('lvlup.admin', [
 	adminSocket.bind([
 		'reset',
 		'player:join',
-		'players'
+		'players',
+		'question',
+		'answer'
 	]);
 });

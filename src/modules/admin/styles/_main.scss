@@ -6,4 +6,6 @@ main {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
+	flex-wrap: wrap;
+	padding: 0.5em;
 }

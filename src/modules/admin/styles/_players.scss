@@ -1,5 +1,4 @@
 .players {
-	margin: 1em;
 }
 
 .player {
@@ -14,18 +13,6 @@
 
 .player__stats {
 	flex: 0 0 auto;
-}
-
-.player-stats__correct {
-	color: $success-color;
-}
-
-.player-stats__wrong {
-	color: $error-color;
-}
-
-.player-stats__noanswer {
-	color: $gray-text;
 }
 
 .player__info {

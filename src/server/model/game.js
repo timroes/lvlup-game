@@ -179,6 +179,7 @@ export default class Game {
 
 		let remainingTime = question.start();
 		this.io.sockets.emit('question', question.clientJson);
+		this.admin.currentQuestion(question);
 		// End the current question 2 seconds after it should actually end (to compensate bad network, etc.)
 		this.currentQuestionTimeoutId = setTimeout(this.endQuestion.bind(this), question.timeRemaining + timeOverrun * 1000);
 
@@ -222,6 +223,7 @@ export default class Game {
 
 		this.screen.answerStatistics = statistics;
 
+		this.admin.answerStatistics(statistics);
 		this.admin.updatePlayers(this.players);
 
 		this.currentQuestion = null;
