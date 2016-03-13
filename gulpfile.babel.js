@@ -48,6 +48,7 @@ modules.forEach((module) => {
 	gulp.task(`${module}:scripts`, () => {
 		return gulp.src(moddir + src.scripts)
 			.pipe(_.concat(`${module}.min.js`))
+			.pipe(_.babel())
 			.pipe(_.ngAnnotate())
 			.pipe(_.uglify())
 			.pipe(gulp.dest(`${out.modules}/${module}`))
@@ -135,7 +136,7 @@ gulp.task('server:build', () => {
 	const filter = _.filter(['**/*.js'], { restore: true });
 	return gulp.src(src.server)
 		.pipe(filter)
-		.pipe(_.babel({ optional: [ 'runtime' ]}))
+		.pipe(_.babel())
 		.pipe(filter.restore)
 		.pipe(gulp.dest(dirs.build));
 });

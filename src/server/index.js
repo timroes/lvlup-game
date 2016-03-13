@@ -1,10 +1,9 @@
 import auth from './auth';
+import Game from './model/game';
 
 const express = require('express'),
 	server = require('./server'),
 	socketio = require('socket.io');
-
-const Game = require('./model/game');
 
 const modules = `${__dirname}/modules`;
 
