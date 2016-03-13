@@ -4,7 +4,7 @@
   "description": "A simple quiz game, that you can play with a crowd of smartphone owners.",
   "main": "gulpfile.js",
   "scripts": {
-    "install": "node_modules/.bin/gulp build",
+    "install": "./node_modules/.bin/gulp build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node build/index.js"
   },
@@ -49,5 +49,9 @@
     "q": "^1.4.1",
     "socket.io": "^1.3.7"
   },
-  "repository": "timroes/lvlup-game"
+  "repository": "timroes/lvlup-game",
+  "engines": {
+    "node": "4.4.0"
+  },
+  "private": true
 }

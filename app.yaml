@@ -1,0 +1,12 @@
+runtime: custom
+vm: true
+
+skip_files:
+  - ^(.*/)?.*/node_modules/.*$
+  - ^(.*/)?.*/build/.*$
+
+# This application currently uses a lot of in memory storage, so it cannot be
+# scaled across multiple instances.
+# Also socket.io needs session affinity so its easier to just use one server.
+manual_scaling:
+  instances: 1

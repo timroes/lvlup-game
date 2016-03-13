@@ -23,4 +23,4 @@ server.app.use('/screen', express.static(`${modules}/screen`));
 
 server.app.use(express.static(`${modules}/client`));
 
-server.server.listen(process.env.NODE_PORT || 3000);
+server.server.listen(process.env.PORT || 3000);
