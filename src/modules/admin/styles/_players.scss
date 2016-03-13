@@ -1,13 +1,15 @@
 .players {
 	margin: 1em;
-	vertical-align: top;
-	max-width: 500px;
-	width: 40%;
 }
 
 .player {
 	display: flex;
 	align-items: flex-end;
+	padding: 0.4em 0.6em;
+}
+
+.player:nth-child(even) {
+	background-color: #EEE;
 }
 
 .player__stats {
@@ -43,7 +45,7 @@
 .player__username {
 	font-size: 1rem;
 	font-weight: 300;
-	margin: 0.6em 0 0.1em;
+	margin: 0 0 0.1em;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
