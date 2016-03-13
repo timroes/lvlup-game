@@ -25,7 +25,8 @@ export default class Question {
 
 		this.id = json.id;
 		this.type = json.type;
-		
+		this.rating = Math.max(json.rating, 0);
+
 		this.time = (json.time ? json.time * timePerQuestionFactor : timePerQuestionDefault) * 1000;
 		this.exp = json.exp;
 		this.winExp = this.exp;
@@ -45,7 +46,8 @@ export default class Question {
 			exp: this.exp,
 			time: this.time,
 			timeRemaining: this.timeRemaining,
-			endsAt: this.endTime
+			endsAt: this.endTime,
+			rating: this.rating
 		};
 	}
 

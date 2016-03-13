@@ -10,6 +10,8 @@ import * as utils from '../utils';
 
 const timeOverrun = 2; // in seconds
 const highscoreLimit = 10;
+// The amount of levels to split rating into
+const ratingLevels = 3;
 
 const events = {
 	gameEnded: 'end',
@@ -136,9 +138,22 @@ export default class Game {
 				qes.id = id;
 				this.questions[id] = qes;
 			});
+			// Update the exp ranges for easy/medium/hard ratings
+			let min = Number.MAX_VALUE, max = Number.MIN_VALUE;
+			questions.forEach(qes => {
+				min = Math.min(qes.exp, min);
+				max = Math.max(qes.exp, max);
+			});
+
+			this.minExp = min;
+			this.maxExp = max;
 		} else {
 			throw new Error('Questions must be in form of an array.');
 		}
+	}
+
+	calculateQuestionRating(questionJson) {
+		return Math.max(1, Math.ceil((questionJson.exp - this.minExp) / ((this.maxExp - this.minExp) / ratingLevels)));
 	}
 
 	setQuestion(id) {
@@ -156,6 +171,9 @@ export default class Game {
 
 		// Mark question as asked
 		this.questions[id].asked = true;
+
+		// Update rating depending on current max and min exp of all questions
+		this.questions[id].rating = this.calculateQuestionRating(this.questions[id]);
 
 		let question = Question.parse(this.questions[id]);
 
