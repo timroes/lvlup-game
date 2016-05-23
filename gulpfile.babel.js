@@ -40,7 +40,7 @@ modules.forEach((module) => {
 	});
 
 	gulp.task(`${module}:assets`, [`${module}:fontello`], () => {
-		return gulp.src(moddir + src.assets, { base: moddir })
+		return gulp.src(src.assets.map(src => `${moddir}${src}`), { base: moddir })
 			.pipe(gulp.dest(`${out.modules}/${module}`))
 			.pipe(_.livereload());
 	});
@@ -120,6 +120,7 @@ modules.forEach((module) => {
 		gulp.watch(moddir + src.scripts, [`${module}:scripts`]);
 		gulp.watch(moddir + src.styles, [`${module}:styles`]);
 		gulp.watch(moddir + src.templates, [`${module}:templates`]);
+		// TODO: Assets is now an array, this line needs to be fixed
 		gulp.watch(moddir + src.assets, [`${module}:assets`]);
 		gulp.watch(moddir + src.fontello, [`${module}:fontello`]);
 	});
